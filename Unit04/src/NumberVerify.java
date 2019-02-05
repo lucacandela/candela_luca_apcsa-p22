@@ -12,10 +12,10 @@ public class NumberVerify
 {
 	public static boolean isOdd( int num )
 	{
-		return true;
+		return num % 2 !=0;
 	}
 	public static boolean isEven( int num )
 	{
-		return true;
+		return !isOdd(num);
 	}	
 }

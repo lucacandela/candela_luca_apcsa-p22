@@ -10,6 +10,8 @@ import static java.lang.System.*;
 
 public class NumberVerify
 {
+	public NumberVerify()
+	
 	public static boolean isOdd( int num )
 	{
 		return num % 2 !=0;

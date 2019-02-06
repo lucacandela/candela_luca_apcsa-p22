@@ -19,6 +19,8 @@ public class NumberVerifyRunner
 		
 		out.println("5 is odd :: " + NumberVerify.isOdd(5));
 		out.println("5 is even :: " + NumberVerify.isEven(5));
+		out.println("12 is odd :: " + NumberVerify.isOdd(12));
+		out.println("12 is even :: " + NumberVerify.isEven(12));
 		
 		out.printf("Enter an integer :: ");
 		checkNum = keyboard.nextInt();

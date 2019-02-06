@@ -13,11 +13,21 @@ public class NumberVerifyRunner
 {
 	public static void main ( String[] args )
 	{
+		int checkNum;
+		String checkType;
 		Scanner keyboard = new Scanner(System.in);
 		
+		out.println("5 is odd :: " + NumberVerify.isOdd(5));
+		out.println("5 is even :: " + NumberVerify.isEven(5));
 		
-		System.out.println("5 is odd :: " + NumberVerify.isOdd(5));
-		System.out.println("5 is even :: " + NumberVerify.isEven(5));
+		out.printf("Enter a number :: ");
+		checkNum = keyboard.nextInt();
+		
+		out.printf("Is this odd or even? :: ");
+		checkType = keyboard.next();
+		keyboard.close();
+		NumberVerify.checkEvenOdd(checkType, checkNum);
+		
 		
 		//add in more test cases
 	}

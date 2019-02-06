@@ -10,7 +10,6 @@ import static java.lang.System.*;
 
 public class NumberVerify
 {
-	public NumberVerify()
 	
 	public static boolean isOdd( int num )
 	{
@@ -20,4 +19,17 @@ public class NumberVerify
 	{
 		return !isOdd(num);
 	}	
+	
+	public static void checkEvenOdd(String type, int num){
+		if (type.compareToIgnoreCase("even") == 0) {
+			out.println(NumberVerify.isEven(num));
+		}
+		else if (type.compareToIgnoreCase("odd") == 0) {
+			out.println(NumberVerify.isOdd(num));
+		}
+		else
+		{
+			out.println("error");
+		}
+	}
 }

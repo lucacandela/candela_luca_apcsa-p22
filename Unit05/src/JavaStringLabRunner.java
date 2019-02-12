@@ -19,7 +19,7 @@ public class JavaStringLabRunner
 		System.out.println(  s.go(  "##wowgira77##eplus")    );
 		System.out.println(  s.go(  "catsandaplusdogsaplus###")    );
 		System.out.println(  s.go(  "7")    );
-
+		System.out.println(	 s.go(  "E")	);
 	}
 }
 

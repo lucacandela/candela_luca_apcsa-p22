@@ -34,7 +34,7 @@ public class StringEquality
 	{
 		if (wordOne.equals(wordTwo)) {
 			return true;
-		}
+			}
 		return false;
 	}
 

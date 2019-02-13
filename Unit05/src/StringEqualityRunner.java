@@ -14,17 +14,25 @@ public class StringEqualityRunner
 {
 	public static void main( String args[] )
 	{
-		out.println("true".equals("true"));
+		StringEquality s = new StringEquality();
+		s.setWords("three", "htree");
+		out.println(s.toString(s.checkEquality()));
+		
+		s.setWords("dog", "cat");
+		out.println(s.toString(s.checkEquality()));
+		
+		s.setWords("one", "one");
+		out.println(s.toString(s.checkEquality()));
+		
 		Scanner keyboard = new Scanner(in);
-		out.println("String one :: ");
+		out.printf("String one :: ");
 		String stringOne = keyboard.next();
 		
-		out.println("String two :: ");
+		out.printf("String two :: ");
 		String stringTwo = keyboard.next();
 		
-		StringEquality s = new StringEquality();
 		s.setWords(stringOne, stringTwo);
-		s.toString(s.checkEquality());
+		out.println(s.toString(s.checkEquality()));
 		
 	}
 }

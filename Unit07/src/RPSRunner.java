@@ -18,11 +18,13 @@ public class RPSRunner
 			out.print("Rock, Paper, or Scissors? - pick your weapon [R,P,S] :: ");
 			player = keyboard.next();
 			//read in the player value
-			
+
 			RockPaperScissors game = new RockPaperScissors(player);
-			
+			out.print(game.toString()+"\n");
+			out.print("Play again? [y/n] :: ");
+			response = keyboard.next().charAt(0);
 		}
-		while (response == 'y');
+		while (response == 'y' || response == 'Y');
 	}
 }
 

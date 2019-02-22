@@ -3,10 +3,14 @@
 //Name -
 
 import static java.lang.System.*;
+import java.util.Scanner;
 
 public class TriangleFiveRunner
 {
    public static void main(String args[])
    {
-	}
+	   TriangleFive game = new TriangleFive('Z',10);
+	   System.out.print(game);
+   
+   }
 }

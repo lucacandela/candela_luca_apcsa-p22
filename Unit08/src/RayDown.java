@@ -9,6 +9,15 @@ public class RayDown
 	//are in decreasing order [31,12,6,2,1]
 	public static boolean go(int[] numArray)
 	{
-		return true;
+		int count =0;
+		for (int i = numArray.length-2; i > 0; i--) {
+			if (!(numArray[i] < numArray[i+1])) {
+				count++;
+			}
+		}
+		if (count == 0)
+			return true;
+		else
+			return false;
 	}	
 }

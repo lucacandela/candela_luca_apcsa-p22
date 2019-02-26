@@ -39,7 +39,7 @@ public class TriangleFive
 		char character = letter;
 		
 		for(int a = 0; a < amount; a++){
-			for (int i = 0; i< amount; i++) {
+			for (int i = 0; i< amount-a; i++) {
 				for (int x = 0; x< amount-count; x++) {
 					output+= (character);
 				}
@@ -54,6 +54,8 @@ public class TriangleFive
 				count ++;
 			}
 			output+="\n";
+			character = letter;
+			count=0;
 		}
 		
 		return output;

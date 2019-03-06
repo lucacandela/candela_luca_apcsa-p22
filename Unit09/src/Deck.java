@@ -38,7 +38,7 @@ public class Deck {
 				card.add(ranks[x]);
 				card.add(suits[i]);
 				card.add(values[x]);
-				deck.add(card);
+				cards[i] = new Card(card.get(0));
 				}
 		}
 		System.out.println(deck.toString());

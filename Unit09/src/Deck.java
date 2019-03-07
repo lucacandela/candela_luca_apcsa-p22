@@ -19,8 +19,7 @@ public class Deck {
 	 * The next card to be dealt is at size - 1.
 	 */
 	private int size;
-
-
+	
 	/**
 	 * Creates a new <code>Deck</code> instance.<BR>
 	 * It pairs each element of ranks with each element of suits,
@@ -30,19 +29,20 @@ public class Deck {
 	 * @param values is an array containing all of the card point values.
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
-		ArrayList deck = new ArrayList();
-		ArrayList card = new ArrayList(3);
+
+		Card card;
+		cards = new Card[ranks.length*suits.length];
+		int count = 0;
 		for (int i = 0; i < suits.length; i++) {
 			for (int x = 0; x < ranks.length; x++) {
-				card = new ArrayList(3);
-				card.add(ranks[x]);
-				card.add(suits[i]);
-				card.add(values[x]);
-				cards[i] = new Card(card.get(0));
+				
+				card = new Card(ranks[x],suits[i],values[x]);
+			
+				cards[count] = card;
+				count++;
 				}
 		}
-		System.out.println(deck.toString());
-		size = deck.size();
+		size = cards.length;
 	}
 
 
@@ -80,7 +80,12 @@ public class Deck {
 	 *         previously dealt.
 	 */
 	public Card deal() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+		
+		size--;
+		if (isEmpty())
+			return null;
+		else
+			return cards[size];
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class Deck {
 		String rtn = "size = " + size + "\nUndealt cards: \n";
 
 		for (int k = size - 1; k >= 0; k--) {
-			rtn = rtn + cards.get(k);
+			rtn = rtn + cards[k];
 			if (k != 0) {
 				rtn = rtn + ", ";
 			}
@@ -103,12 +108,12 @@ public class Deck {
 		}
 
 		rtn = rtn + "\nDealt cards: \n";
-		for (int k = cards.size() - 1; k >= size; k--) {
-			rtn = rtn + cards.get(k);
+		for (int k = cards.length - 1; k >= size; k--) {
+			rtn = rtn + cards[k];
 			if (k != size) {
 				rtn = rtn + ", ";
 			}
-			if ((k - cards.size()) % 2 == 0) {
+			if ((k - cards.length) % 2 == 0) {
 				// Insert carriage returns so entire deck is visible on console.
 				rtn = rtn + "\n";
 			}

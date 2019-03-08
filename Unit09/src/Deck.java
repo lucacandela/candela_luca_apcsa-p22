@@ -17,6 +17,7 @@ public class Deck {
 	 */
 	private int size;
 	
+	
 	/**
 	 * Creates a new <code>Deck</code> instance.<BR>
 	 * It pairs each element of ranks with each element of suits,
@@ -40,6 +41,7 @@ public class Deck {
 				}
 		}
 		size = cards.length;
+		shuffle();
 	}
 
 
@@ -68,9 +70,25 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+		Card[] shuffled = cards;
+		size = shuffled.length;
+		int k = size-1;
+		
+		
+		Card holder;
+		do {
+			int j = (int)(Math.random() * k);
+			
+			holder = shuffled[k];
+			shuffled[k] = shuffled[j];
+			shuffled[j] = holder;
+			k--;
+		}
+		while(!(k == 1));
+		
+		cards = shuffled;
 	}
-
+	
 	/**
 	 * Deals a card from this deck.
 	 * @return the card just dealt, or null if all the cards have been
@@ -84,7 +102,7 @@ public class Deck {
 		else
 			return cards[size];
 	}
-
+	
 	/**
 	 * Generates and returns a string representation of this deck.
 	 * @return a string representation of this deck.

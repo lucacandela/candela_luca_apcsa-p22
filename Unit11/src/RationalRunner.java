@@ -8,6 +8,13 @@ public class RationalRunner
 {
 	public static void main( String args[] )
 	{
+		Rational test = new Rational();
+		out.println(test);
+		
+		test = new Rational(3,4);
+		out.println(test);
+		
+		out.println("test.equals(newOne) = " + )
 		/*uncomment once Rational class is built
 		 *
 		Rational test = new Rational();

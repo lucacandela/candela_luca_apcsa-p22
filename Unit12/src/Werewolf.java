@@ -1,29 +1,24 @@
-//(c) A+ Computer Science
-//www.apluscompsci.com
-//Name -
+import static java.lang.System.*;
 
-import static java.lang.System.*; 
-
-public class Skeleton implements Monster
-{
+public class Werewolf implements Monster{
 	private String name;
 	private int size;
 
-	public Skeleton() {
+	public Werewolf() {
 		name = "";
 		size = 0;
 	}
 	
-	public Skeleton(String n) {
+	public Werewolf(String n) {
 		name = n;
 		size = 0;
 	}
-	public Skeleton(int s) {
+	public Werewolf(int s) {
 		name = "";
 		size = s;
 	}
 	
-	public Skeleton(String n, int s) {
+	public Werewolf(String n, int s) {
 		name = n;
 		size = s;
 	}
@@ -59,7 +54,4 @@ public class Skeleton implements Monster
 	public String toString() {
 		return "" + getName() + " " + getHowBig();
 	}
-	//add code to implement the Monster interface
-
-	//add a toString
 }

@@ -53,7 +53,7 @@ public class ElevensBoard extends Board {
 	 */
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
-		if (containsPairSum11(selectedCards) || containsJQK(selectedCards)) {
+		if ((containsPairSum11(selectedCards) || containsJQK(selectedCards)) && (!(selectedCards.size() > 3))) {
 			return true;
 		}
 		return false;
@@ -71,10 +71,10 @@ public class ElevensBoard extends Board {
 	public boolean anotherPlayIsPossible() {
 		List<Integer> n = cardIndexes();
 		List<Integer> cardVals = new ArrayList<>();
-		for (int i = 0; i< n.size(); i++) {
+		for (int i = 0; i< n.size()-1; i++) {
 			cardVals.add(cardAt(n.get(i)).pointValue());
 		}
-		if (containsPairSum11(cardVals) || containsJQK(cardVals) ){
+		if (containsPairSum11(n) || containsJQK(n) ){
 			return true;
 		}
 		return false;
@@ -91,12 +91,16 @@ public class ElevensBoard extends Board {
 	private boolean containsPairSum11(List<Integer> selectedCards) {
 		int count = 0;
 		for (int i = 0; i < selectedCards.size(); i++) {
-			count = cardAt(selectedCards.get(i)).pointValue() + cardAt(selectedCards.get(i+1)).pointValue();
-			if (count == 11) {
-				return true;
+			for (int x = 0; x < selectedCards.size(); x++){
+				if(!(i == x)) {
+					count = cardAt(selectedCards.get(i)).pointValue() + cardAt(selectedCards.get(x)).pointValue();
+					if (count == 11) {
+						return true;
+					}
+				}
 			}
+			
 		}
-		
 		return false;
 	}
 
@@ -110,12 +114,20 @@ public class ElevensBoard extends Board {
 	 */
 	private boolean containsJQK(List<Integer> selectedCards) {
 		int count = 0;
+		int jCount =0, qCount=0, kCount=0;
+		Card c;
 		for(int i = 0; i < selectedCards.size(); i++) {
-			if (cardAt(selectedCards.get(i)).pointValue() == 0)
+			c = cardAt(selectedCards.get(i));
+			if (c.pointValue() == 0)
 				count +=1;
-			if (count == 3) {
+			if (c.rank().equals("jack") && !(jCount == 1))
+				jCount++;
+			if (c.rank().equals("king") && !(kCount == 1))
+				kCount++;
+			if (c.rank().equals("queen") && !(qCount == 1))
+				qCount++;
+			if (count == 3 && jCount == 1 && kCount == 1 && qCount == 1)
 				return true;
-			}
 		}
 		
 		return false;

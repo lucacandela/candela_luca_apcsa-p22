@@ -12,10 +12,27 @@ public class MatrixCount1
     										{ 6, 7, 1, 2, 5},
     										{ 6, 7, 8, 9, 0},
     										{ 5, 4, 3, 2, 1}};
-
+    
     public static int count( int val  )
     {
-		//add code
-		return 0;
+		int count = 0;
+		for (int i = 0; i < m.length; i++) {
+			for (int s = 0; i < m[i].length; s++) {
+				if (m[i][s] == val)
+					count++;
+			}
+		}
+		return count;
+    }
+    
+    public String toString() {
+    	String out = "Matrix Values:\n";
+    	for (int i = 0; i < m.length; i++) {
+    		for (int s = 0; i < m[i].length; i++) {
+    			out += m[i][s] + " ";
+    		}
+    		out +="\n";
+    	}
+    	return out;
     }
 }

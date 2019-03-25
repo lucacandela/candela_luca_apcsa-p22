@@ -17,7 +17,7 @@ public class MatrixCount1
     {
 		int count = 0;
 		for (int i = 0; i < m.length; i++) {
-			for (int s = 0; i < m[i].length; s++) {
+			for (int s = 0; s < m[i].length; s++) {
 				if (m[i][s] == val)
 					count++;
 			}
@@ -28,7 +28,7 @@ public class MatrixCount1
     public String toString() {
     	String out = "Matrix Values:\n";
     	for (int i = 0; i < m.length; i++) {
-    		for (int s = 0; i < m[i].length; i++) {
+    		for (int s = 0; s < m[i].length; s++) {
     			out += m[i][s] + " ";
     		}
     		out +="\n";

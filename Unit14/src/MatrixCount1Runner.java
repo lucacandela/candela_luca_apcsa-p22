@@ -9,7 +9,10 @@ public class MatrixCount1Runner
 		MatrixCount1 m = new MatrixCount1();
 		
 		System.out.println(m);
-		System.out.println("" + m.count(7));
+		System.out.println("The 7 count is :: " + m.count(7));
+		System.out.println("The 8 count is :: " + m.count(8));
+		System.out.println("The 6 count is :: " + m.count(6));
+		System.out.println("The 21 count is :: " + m.count(21));
 	}
 }
 

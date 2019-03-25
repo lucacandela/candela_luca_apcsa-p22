@@ -20,6 +20,23 @@ public class RecursionFunThree
 	 */
 	public static int luckyThrees( long number )
 	{
+		long remainingDigits = 0;
+		long lastDigit = number % 10;
+		if (number > 0) {
+			String str = "" + number;
+			if(str.length() > 1){
+				remainingDigits = (long)Integer.parseInt(str.substring(0,str.length()-1));
+			}
+			else {
+				remainingDigits = 0;
+			}
+			if (lastDigit == 3 && remainingDigits > 0) {
+				return 1 + luckyThrees(remainingDigits);
+			}
+			else {
+				return 0 + luckyThrees(remainingDigits);
+			}
+		}
 		return 0;
 	}
 }

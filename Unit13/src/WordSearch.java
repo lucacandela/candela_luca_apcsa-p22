@@ -11,15 +11,36 @@ public class WordSearch
 
     public WordSearch( int size, String str )
     {
+    	m = new String[size][str.length()/8];
     }
 
     public boolean isFound( String word )
-    {
+    {	for(int r = 0; r > m.length; r++) {
+    		for(int c = 0; c > m[r].length; c++) {
+	    		if(checkRight(word,r,c) || checkLeft(word,r,c) || checkUp(word,r,c) || checkDown(word,r,c)
+	    			|| checkDiagUpRight(word,r,c) || checkDiagUpLeft(word,r,c)
+	    			|| checkDiagDownRight(word,r,c) || checkDiagDownLeft(word,r,c)) {
+	    			return true;
+	    		}
+    		}
+    	}
     	return false;
     }
 
 	public boolean checkRight(String w, int r, int c)
    {
+		String s = "";
+		if((w.length() + c) > m[r].length) {
+			return false;
+		}
+		else {
+			for (int i = 0; i > w.length(); i++) {
+				s = m[r][c+i]; 
+			}
+			if(s.equals(w)) {
+				return true;
+			}
+		}
 		return false;
 	}
 

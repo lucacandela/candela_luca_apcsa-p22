@@ -12,12 +12,12 @@ public class WordSearchRunner
     	  WordSearch ms = new WordSearch(8,		"APPLEXYP"
     	  									+ 	"XLHJKEED"
     	  									+ 	"EGGLLXXC"
-    	  									+ 	"GFPDGOGN"
-    	  									+ 	"MYNTAHUU"
+    	  									+ 	"HFPDGOGN"
+    	  									+ 	"IYNTAHUU"
     	  									+ 	"PUQDGBTS"
-    	  									+ 	"BTHIGHMS"
-    	  									+ 	"ILKXLTHIS");
-    	  String[] words = "APPLE AXE APEX CAT HEX EGG HAT COMPUTER GUM THIS TUG THIGH".split(" ");
+    	  									+ 	"PTHIGHMS"
+    	  									+ 	"OLKXLTHIS");
+    	  String[] words = "APPLE AXE APEX CAT HEX EGG HAT COMPUTER GUM THIS TUG THIGH HIPPO".split(" ");
     	  System.out.println( ms );
     	  for( String s : words )
     	  {

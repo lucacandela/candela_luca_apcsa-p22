@@ -11,13 +11,21 @@ public class WordSearch
 
     public WordSearch( int size, String str )
     {
-    	m = new String[size][str.length()/8];
+    	m = new String[size][str.length()/size];
+    	int count = 0;
+    	for(int i = 0; i < m.length; i++) {
+    		for (int x = 0; x < m[i].length; x++) {
+    			m[i][x] = str.substring(count, count+1);
+    			count++;
+    		}
+    	}
+    	
     }
 
     public boolean isFound( String word )
-    {	for(int r = 0; r > m.length; r++) {
-    		for(int c = 0; c > m[r].length; c++) {
-	    		if(checkRight(word,r,c) || checkLeft(word,r,c) || checkUp(word,r,c) || checkDown(word,r,c)
+    {	for(int r = 0; r < m.length; r++) {
+    		for(int c = 0; c < m[r].length; c++) {
+ 	    		if(checkRight(word,r,c) || checkLeft(word,r,c) || checkUp(word,r,c) || checkDown(word,r,c)
 	    			|| checkDiagUpRight(word,r,c) || checkDiagUpLeft(word,r,c)
 	    			|| checkDiagDownRight(word,r,c) || checkDiagDownLeft(word,r,c)) {
 	    			return true;
@@ -34,8 +42,8 @@ public class WordSearch
 			return false;
 		}
 		else {
-			for (int i = 0; i > w.length(); i++) {
-				s = m[r][c+i]; 
+			for (int i = 0; i < w.length(); i++) {
+				s += m[r][c+i]; 
 			}
 			if(s.equals(w)) {
 				return true;
@@ -46,18 +54,52 @@ public class WordSearch
 
 	public boolean checkLeft(String w, int r, int c)
 	{
+		/*String[] forwards = w.split("");
+		String backwards = "";
+		for(int i = w.length()-1; i >= 0; i--) {
+			backwards += forwards[i];
+		}*/
+		String s = "";
+		if((c+1 - w.length()) <= -1) {
+			return false;
+		}
+		for(int i = 0; i < w.length(); i++) {
+			s += m[r][c-i];
+		}
+		if(s.equals(w)) {
+			return true;
+		}
+		
 		return false;
 	}
 
 	public boolean checkUp(String w, int r, int c)
 	{
+		String s = "";
+		if((r+1 - w.length()) < 0)
+			return false;
+		else {
+			for(int i = 0; i < w.length(); i++) {
+				s += m[r-i][c];
+			}
+			if (s.equals(w))
+				return true;
+		}
 		return false;
 	}
 
 	public boolean checkDown(String w, int r, int c)
    {
-	   return false;
-	}
+		String s = "";
+		if(r+1 + w.length() > m.length)
+			return false;
+		for(int i = 0; i < w.length(); i++) {
+			s+= m[r+i][c];
+		}
+		if (s.equals(w))
+			return true;
+		return false;
+   }
 
 	public boolean checkDiagUpRight(String w, int r, int c)
 	{
@@ -81,6 +123,14 @@ public class WordSearch
 
     public String toString()
     {
- 		return "";
+ 		String out = "";
+ 		for(int r = 0; r < m.length; r++) {
+ 			for(int c = 0; c < m[r].length; c++) {
+ 				out+=m[r][c] + " ";
+ 			}
+ 			out+="\n";
+ 		}
+ 		
+ 		return out;
     }
 }

@@ -91,7 +91,7 @@ public class WordSearch
 	public boolean checkDown(String w, int r, int c)
    {
 		String s = "";
-		if(r+1 + w.length() > m.length)
+		if(r + w.length() > m.length)
 			return false;
 		for(int i = 0; i < w.length(); i++) {
 			s+= m[r+i][c];
@@ -103,21 +103,58 @@ public class WordSearch
 
 	public boolean checkDiagUpRight(String w, int r, int c)
 	{
+		String s = "";
+		if( ((r+1 - w.length()) < 0) || ((w.length() + c) > m[r].length)) {
+			return false;
+		}
+		for(int i = 0; i < w.length(); i++) {
+			s+= m[r-i][c+i];
+		}
+		if(s.equals(w))
+			return true;
 		return false;
 	}
 
 	public boolean checkDiagUpLeft(String w, int r, int c)
 	{
+		String s = "";
+		if( ((r+1 - w.length()) < 0) || ((c+1 - w.length()) <= -1) ) {
+			return false;
+		}
+		for(int i = 0; i < w.length(); i++) {
+			s+= m[r-i][c-i];
+		}
+		if(s.equals(w))
+			return true;
 		return false;
 	}
 
 	public boolean checkDiagDownLeft(String w, int r, int c)
-   {
+   {	
+		String s = "";
+		if( (r + w.length() > m.length) || ((c+1 - w.length()) <= -1) ) {
+			return false;
+		}
+		for(int i = 0; i < w.length(); i++) {
+			s+=m[r+i][c-i];
+		}
+		if(s.equals(w)) {
+			return true;
+		}
 		return false;
 	}
 
 	public boolean checkDiagDownRight(String w, int r, int c)
 	{
+		String s = "";
+		if( (r + w.length() > m.length) || ((w.length() + c) > m[r].length) ) {
+			return false;
+		}
+		for(int i = 0; i < w.length(); i++) {
+			s+= m[r+i][c+i];
+		}
+		if(s.equals(w))
+			return true;
 		return false;
 	}
 

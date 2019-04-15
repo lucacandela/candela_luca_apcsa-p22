@@ -61,12 +61,18 @@ public class Ball extends Block
 	
 	   
    //add the set methods
+	public void setXSpeed(int s) {
+		xSpeed = s;
+	}
+	public void setYSpeed(int s) {
+		ySpeed = s;
+	}
    
 
    public void moveAndDraw(Graphics window)
    {
    	//draw a white ball at old ball location
-
+	   draw(window, Color.white);
 
       setX(getX()+xSpeed);
       setY(getY() + ySpeed);//setY

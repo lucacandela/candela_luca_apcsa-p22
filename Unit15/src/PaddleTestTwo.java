@@ -29,12 +29,12 @@ public class PaddleTestTwo extends Canvas implements KeyListener, Runnable
 		
 		
 		//instantiate a left Paddle
-		
+		Paddle leftPaddle = new Paddle();
 		
 		
 		
 		//instantiate a right Paddle
-		
+		Paddle rightPaddle = new Paddle();
 		
 		
 

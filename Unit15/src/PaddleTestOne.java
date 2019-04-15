@@ -9,6 +9,9 @@ class PaddleTestOne
 {
 	public static void main( String args[] )
 	{
+		Color g = Color.GREEN;
+		Color r = Color.RED;
+		
 		Paddle one = new Paddle();
 		out.println(one);
 		
@@ -23,7 +26,6 @@ class PaddleTestOne
 		
 		Paddle five = new Paddle(100,100,30,20, Color.GREEN,6);
 		out.println(five);
-		
 		
 		out.println(five.equals(four));		
 		

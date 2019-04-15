@@ -119,7 +119,7 @@ public class Block implements Locatable
 
    //add a toString() method  - x , y , width, height, color
 	public String toString() {
-		String out = "x = " + getX() + ", y = " + getY() + ",\n width = " + getWidth() + ", height = " + getHeight() + ",\n color = " + getColor();
+		String out = getX() + " " + getY() + " " + getWidth() + " " + getHeight() + " " + getColor();
 		return out;
 	}
 }

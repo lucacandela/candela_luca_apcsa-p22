@@ -48,7 +48,14 @@ public class Paddle extends Block
 	   speed = s;
    }
 
-
+   public boolean equals(Object obj) {
+	   Paddle other = (Paddle) obj;
+	   if (super.equals(obj) && other.getSpeed() == getSpeed()) {
+		   return true;
+	   }
+	   else
+		   return false;
+   }
 
 
 

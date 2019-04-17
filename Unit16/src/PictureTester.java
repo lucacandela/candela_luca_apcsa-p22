@@ -1,3 +1,4 @@
+
 /**
  * This class contains class (static) methods
  * that will help you test the Picture class 

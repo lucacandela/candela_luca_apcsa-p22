@@ -50,9 +50,21 @@ public class PictureTester
 	  p.explore();
   }
   
-  /**Method to test greyscale */
-   public static void testNegate()
+  /**Method to test grayscale */
+   public static void testGrayscale() {
+	   Picture p = new Picture ("beach.jpg");
+	   p.explore();
+	   p.grayscale();
+	   p.explore();
+   }
   
+  /**Method to test fixUnderwater */
+   public static void testFixUnderwater() {
+	   Picture p = new Picture ("water.jpg");
+	   p.explore();
+	   p.fixUnderwater();
+	   p.explore();
+   }
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()
   {
@@ -101,7 +113,7 @@ public class PictureTester
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();
-    //testFixUnderwater();
+    testFixUnderwater();
     //testMirrorVertical();
     //testMirrorTemple();
     //testMirrorArms();

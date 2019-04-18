@@ -34,6 +34,25 @@ public class PictureTester
 	  p.explore();
   }
   
+  /**Method to test keepOnlyGreen */
+  public static void testKeepOnlyGreen() {
+	  Picture p = new Picture("beach.jpg");
+	  p.explore();
+	  p.keepOnlyGreen();
+	  p.explore();
+  }
+  
+  /**Method to test negate */
+  public static void testNegate() {
+	  Picture p = new Picture ("beach.jpg");
+	  p.explore();
+	  p.negate();
+	  p.explore();
+  }
+  
+  /**Method to test greyscale */
+   public static void testNegate()
+  
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()
   {
@@ -78,7 +97,7 @@ public class PictureTester
     // to run
     //testZeroBlue();
     //testKeepOnlyBlue();
-    testKeepOnlyRed();
+    //testKeepOnlyRed();
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();

@@ -15,7 +15,9 @@ public class Cello extends Instrument{
 		super();
 		size = s;
 	}
-	
+	public String playString() {
+		return "string";
+	}
 	public Cello (String type, int s) {
 		super(type);
 		size = s;

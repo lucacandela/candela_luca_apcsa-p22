@@ -197,26 +197,91 @@ public class Picture extends SimplePicture
   
   /** Mirror just the snowmen's arm */
   public void mirrorArms() {
-	  int mirrorPoint = 296;
+
+	int rowTop = 160;
+	  int rowBot = 192;
+	  
+	  int colLeft = 106;
+	  int colRight = 171;
+	  
 	  int widthBetween = 0;
+	  
 	  Pixel topPixel = null;
 	  Pixel bottomPixel = null;
 	  int count = 0;
 	  Pixel[][] pixels = this.getPixels2D();
 	  
-	  for(int col = 100; col < mirrorPoint; col++) {
-		  
-		  
-		  for (int row = 155; row < 196; row++) {
-			  
-			  topPixel = pixels[row][col];
-			  bottomPixel = pixels[row + (196-155)][col];
-			  bottomPixel.setColor(topPixel.getColor());
-		  }
+	  for(int col = colLeft + widthBetween; col < colRight+widthBetween; col++) {
+		 for (int row = rowTop; row < rowBot; row++) {
+			topPixel = pixels[row][col];
+			bottomPixel = pixels[row + (rowBot-rowTop) + 37][col-8];
+			bottomPixel.setColor(topPixel.getColor());
+		}
 	  }
+	
+	  widthBetween += 70 + (colRight-colLeft);
+	
+	for(int col = colLeft + widthBetween; col < colRight+widthBetween; col++) {
+		for (int row = rowTop; row < rowBot; row++) {
+			 topPixel = pixels[row][col];
+			 bottomPixel = pixels[row + (rowBot-rowTop) + 37][col+4];
+			 bottomPixel.setColor(topPixel.getColor());
+		}
+	}
+	int rowTop = 160;
+	  int rowBot = 192;
+	  
+	  int colLeft = 106;
+	  int colRight = 171;
+	  
+	  int widthBetween = 0;
+	mirrorSquare(colLeft,colRight,rowTop,rowBot,-8)
   }
   
+  /**Method that duplicates a seagull in a picture
+   * so that there are two seagulls near eachother */
+  public void mirrorGull() {
+	int rowTop = 236;
+	int rowBot = 325;	  
+	int colLeft = 239;
+	int colRight = 345;
+		
+	mirrorSquare(colLeft, colRight, rowTop, rowBot, 5,0); 
+  }
   
+  public void mirrorSquare(int x1, int x2, int y1, int y2, int xShift, int yShift) {
+  
+	int colLeft = x1;
+	int colRight = x2;
+	int rowTop = y1;
+	int rowBot = y2;
+	
+	if (yShift != 0) {
+		yShift += rowBot-rowTop;
+	}
+	else if (yShift < 0) {
+		yShift -= rowBot-rowTop;
+	}
+	
+	if (xShift != 0) {
+		xShift += colRight-colLeft;
+	}
+	else if(xShift < 0) {
+		xShift -= colRight-colLeft;
+	}
+
+	Pixel pixelOne = null;
+	Pixel pixelTwo = null;
+	Pixel[][] pixels = this.getPixels2D();
+		  
+	for(int col = colLeft ; col < colRight; col++) {
+		for (int row = rowTop; row < rowBot; row++) {
+			pixelOne = pixels[row][col];
+			pixelTwo = pixels[row + yShift][col+xShift];
+			pixelTwo.setColor(pixelOne.getColor());
+		}
+	}
+  }
   /** Method that mirrors the picture around a 
    * vertical mirror in the center of the picture
    * from left to right */

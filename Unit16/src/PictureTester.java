@@ -131,6 +131,26 @@ public class PictureTester
     canvas.explore();
   }
   
+  /** Method to test copy portion */
+  public static void testCopy() {
+	  Picture canvas = new Picture("640x480.jpg");
+	  Picture other = new Picture("seagull.jpg");
+	  canvas.copy(other, 20, 20, 237, 345, 234, 320);
+	  canvas.explore();
+  }
+  /** Method to test myCollage */
+  public static void testMyCollage() {
+	  Picture canvas = new Picture("640x480.jpg");
+	  canvas.myCollage();
+	  canvas.explore();
+	  
+	  for(int i = 0; i < 5; i++) {
+		  canvas = new Picture("C:\\Users\\candelal0514\\Pictures\\New folder\\myCollage.jpg");
+		  canvas.myCollage();
+	  }
+	  canvas.explore();
+	  
+  }
   /** Method to test edgeDetection */
   public static void testEdgeDetection()
   {
@@ -160,10 +180,11 @@ public class PictureTester
     //testMirrorHorizontalBotToTop();
 	//testMirrorTemple();
     //testMirrorArms();
-	testMirrorGull();
+	//testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();
     //testCopy();
+    testMyCollage();
     //testEdgeDetection();
     //testEdgeDetection2();
     //testChromakey();

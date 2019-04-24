@@ -17,7 +17,7 @@ import java.util.List; // resolves problem with java.awt.List and java.util.List
 public class Picture extends SimplePicture 
 {
   ///////////////////// constructors //////////////////////////////////
-  
+  private static int offset =5;
   /**
    * Constructor that takes no arguments 
    */
@@ -319,24 +319,32 @@ public class Picture extends SimplePicture
     * @param startRow the start row to copy to
     * @param startCol the start col to copy to
     */
-  public void copy(Picture fromPic, 
-                 int startRow, int startCol)
+  public void copy(Picture fromPic, int startRow, int startCol)
+   {
+	 Pixel fromPixel = null;
+	 Pixel toPixel = null;
+	 Pixel[][] toPixels = this.getPixels2D();
+	 Pixel[][] fromPixels = fromPic.getPixels2D();
+     
+     for (int fromRow = 0, toRow = startRow; fromRow < fromPixels.length && toRow < toPixels.length; fromRow++, toRow++){
+       for (int fromCol = 0, toCol = startCol; fromCol < fromPixels[0].length && toCol < toPixels[0].length; fromCol++, toCol++){
+         fromPixel = fromPixels[fromRow][fromCol];
+         toPixel = toPixels[toRow][toCol];
+         toPixel.setColor(fromPixel.getColor());
+       }
+     }   
+   }
+  
+  public void copy(Picture fromPic, int startRow, int startCol, int startX, int endX, int startY, int endY)
   {
     Pixel fromPixel = null;
     Pixel toPixel = null;
     Pixel[][] toPixels = this.getPixels2D();
     Pixel[][] fromPixels = fromPic.getPixels2D();
-    for (int fromRow = 0, toRow = startRow; 
-         fromRow < fromPixels.length &&
-         toRow < toPixels.length; 
-         fromRow++, toRow++)
-    {
-      for (int fromCol = 0, toCol = startCol; 
-           fromCol < fromPixels[0].length &&
-           toCol < toPixels[0].length;  
-           fromCol++, toCol++)
-      {
-        fromPixel = fromPixels[fromRow][fromCol];
+    
+    for (int fromRow = startY, toRow = startRow; fromRow < endY && toRow < toPixels.length; fromRow++, toRow++){
+      for (int fromCol = startX, toCol = startCol; fromCol < endX && toCol < toPixels[0].length; fromCol++, toCol++){
+    	fromPixel = fromPixels[fromRow][fromCol];
         toPixel = toPixels[toRow][toCol];
         toPixel.setColor(fromPixel.getColor());
       }
@@ -360,6 +368,26 @@ public class Picture extends SimplePicture
     this.write("collage.jpg");
   }
   
+  /**Method to create my collage of several pictures */
+  public void myCollage() {
+	  
+	  int width = 294-99;
+	  Picture snowman1 = new Picture("snowman.jpg");
+	  snowman1.keepOnlyRed();
+	  Picture snowman2 = new Picture("snowman.jpg");
+	  snowman2.mirrorArms();
+	  snowman2.keepOnlyGreen();
+	  snowman2.mirrorVertical();
+	  Picture snowman3 = new Picture("snowman.jpg");
+	  snowman3.keepOnlyBlue();
+	  this.copy(snowman1, offset, offset, 99, 294, 79, 298);
+	  this.copy(snowman2, offset, 5-offset+ width, 99, 294, 79, 298);
+	  this.copy(snowman3, offset, 10+offset+ width+width, 99, 294, 79, 298);
+	  this.mirrorHorizontal();
+	  this.negate();
+	  this.write("C:\\Users\\candelal0514\\Pictures\\New folder\\myCollage.jpg");
+	  offset += 5;
+  }
   
   /** Method to show large changes in color 
     * @param edgeDist the distance for finding edges
@@ -393,9 +421,9 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("beach.jpg");
+    Picture beach = new Picture("snowman.jpg");
     beach.explore();
-    beach.zeroBlue();
+    beach.mirrorArms();
     beach.explore();
   }
   

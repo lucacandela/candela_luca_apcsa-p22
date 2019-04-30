@@ -19,6 +19,7 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 {
 	private Ball ball;
 	private Paddle paddle;
+	private List<Tile> tiles;
 	private boolean[] keys;
 	private BufferedImage back;
 
@@ -31,10 +32,10 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		//instantiate player paddle
 		paddle = new Paddle(30,100,25,100, Color.blue);
 		
-		List<Tile> tiles = new ArrayList<Tile>();
+		tiles = new ArrayList<Tile>();
 		
 		for(int i = 0; i < 7; i++) {
-			tiles.add(arg0)
+			tiles.add(new Tile(20 + (80*i),10,80,20,Color.black));
 		}
 		
 		keys = new boolean[4];
@@ -96,51 +97,43 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 
 
 
-		//see if the ball hits the left paddle
-		if((ball.getX() <= leftPaddle.getX() + leftPaddle.getWidth() + Math.abs(ball.getXSpeed())) &&
-				(ball.getY() >= leftPaddle.getY() && ball.getY() <= leftPaddle.getY() + leftPaddle.getHeight()
-					|| ball.getY()+ball.getHeight() >= leftPaddle.getY() && ball.getY() + ball.getHeight()
-					< leftPaddle.getY() + leftPaddle.getHeight())) {
-			if(ball.getX() <= leftPaddle.getX()+leftPaddle.getWidth() - Math.abs(ball.getXSpeed())) {
-				ball.setXSpeed(-ball.getXSpeed());
-			}
-			else {
-				ball.setYSpeed(-ball.getYSpeed());
-			}
-		}
-		
-		
-		//see if the ball hits the right paddle
-		if((ball.getX() >= rightPaddle.getX() && ball.getX() <= rightPaddle.getX() + rightPaddle.getWidth())
-				&& (ball.getY() >= rightPaddle.getY() && ball.getY() <= rightPaddle.getY() +rightPaddle.getHeight()
-						|| ball.getY() + ball.getHeight() >= rightPaddle.getY() && ball.getY() + ball.getHeight()
-						< rightPaddle.getY() + rightPaddle.getHeight())) {
+		//see if the ball hits the paddle on the ball's left side
+		if(ball.didCollideLeft(paddle)) {
 			ball.setXSpeed(-ball.getXSpeed());
 		}
+		
+		
+		//see if ball hits paddle on the ball's right side
+		if(ball.didCollideRight(paddle))
+			ball.setXSpeed(-ball.getXSpeed());
 
-
+		for (Tile t : tiles) {
+			if (ball.didCollideBottom(t)) {
+				System.out.println(0);
+			}
+		}
 		//see if the paddles need to be moved
 		if(keys[0] == true)
 		{
 			//move left paddle up and draw it on the window
-			leftPaddle.moveUpAndDraw(graphToBack);
+			paddle.moveUpAndDraw(graphToBack);
 		}
 		if(keys[1] == true)
 		{
 			//move left paddle down and draw it on the window
-			leftPaddle.moveDownAndDraw(graphToBack);
+			paddle.moveUpAndDraw(graphToBack);
 
 		}
 		if(keys[2] == true)
 		{
 			//move right paddle up
-			rightPaddle.moveUpAndDraw(graphToBack);
+			paddle.moveDownAndDraw(graphToBack);
 
 		}
 		if(keys[3] == true)
 		{
 			//move right paddle down
-			rightPaddle.moveDownAndDraw(graphToBack);
+			paddle.moveDownAndDraw(graphToBack);
 		}
 
 		twoDGraph.drawImage(back, null, 0, 0);

@@ -98,8 +98,22 @@ public class Ball extends Block implements Collideable
 	}
 	@Override
 	public boolean didCollideLeft(Object obj) {
-		if(!(getX()<=10)) {
-			System.out.println("ball hit left");
+		Block other = (Block) obj;
+		if (obj.getClass().getSimpleName().equals("Paddle")) {
+			
+			 other = (Paddle) obj;
+			
+		
+		}
+		else if (obj.getClass().getSimpleName().equals("Tile")) {
+			 other = (Tile) obj;
+			
+		}
+		if((this.getX() <= other.getX() + this.getWidth() + Math.abs(this.getXSpeed())) &&
+				(this.getY() >= other.getY() && this.getY() <= other.getY() + other.getHeight()
+					|| this.getY()+this.getHeight() >= other.getY() && this.getY() + this.getHeight()
+					< other.getY() + other.getHeight())) {
+			System.out.println("didCollideLeft with " + obj.getClass().getName());
 			return true;
 		}
 		return false;
@@ -108,17 +122,46 @@ public class Ball extends Block implements Collideable
 
 	@Override
 	public boolean didCollideRight(Object obj) {
-		if(!(getX()>=790)) {
-			System.out.println("ball hit right");
+		Block other = (Block) obj;
+		if (obj.getClass().getSimpleName().equals("Paddle")) {
+			
+			 other = (Paddle) obj;
+			
+		
+		}
+		else if (obj.getClass().getSimpleName().equals("Tile")) {
+			 other = (Tile) obj;
+			
+		}
+		if((this.getX() >= other.getX() && this.getX() <= other.getX() + other.getWidth())
+				&& (this.getY() >= other.getY() && this.getY() <= other.getY() +other.getHeight()
+						|| this.getY() + this.getHeight() >= other.getY() && this.getY() + this.getHeight()
+						< other.getY() + other.getHeight())) {
+			System.out.println("didCollideRight with " + obj.getClass().getName());
 			return true;
 		}
-		return false;
+		else
+			return false;
 	}
 
 	@Override
 	public boolean didCollideTop(Object obj) {
-		if(!(getY()<=10)) {
-			System.out.println("ball hit top");
+		Block other = (Block) obj;
+		if (obj.getClass().getSimpleName().equals("Paddle")) {
+			
+			 other = (Paddle) obj;
+			
+		
+		}
+		else if (obj.getClass().getSimpleName().equals("Tile")) {
+			 other = (Tile) obj;
+			
+		}
+		if((this.getY() >= other.getY() && this.getY() <= other.getY() + other.getHeight())
+				&& (this.getX() >= other.getX() && this.getX() <= other.getX() +other.getWidth()
+						|| this.getX() + this.getWidth() >= other.getX() && this.getX() + this.getWidth()
+						< other.getX() + other.getWidth())) {
+			System.out.println("didCollideTop with " + obj.getClass().getName());
 			return true;
 		}
 		return false;

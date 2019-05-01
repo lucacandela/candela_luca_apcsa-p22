@@ -19,7 +19,7 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 {
 	private Ball ball;
 	private Paddle paddle;
-	private List<Tile> tiles;
+	private List<List<Tile>> tileListList;
 	private boolean[] keys;
 	private BufferedImage back;
 
@@ -30,15 +30,22 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		ball = new Ball();		
 		
 		//instantiate player paddle
-		paddle = new Paddle(30,100,25,100, Color.blue);
+		paddle = new Paddle(30,100,100,30, Color.blue);
 		
-		tiles = new ArrayList<Tile>();
-		
-		for(int i = 0; i < 7; i++) {
-			tiles.add(new Tile(20 + (80*i),10,80,20,Color.black));
+		tileListList = new ArrayList<List<Tile>>();
+		int count = 0;
+		for(int i = 0; i < 5; i++) {
+			tileListList.add(new ArrayList<Tile>());
+		}
+		for( List<Tile> tileList : tileListList) {
+			for (int i = 0; i < 5; i++) {
+				tileList.add(new Tile(20 + (80 *i) + (5*i), 20 + (35 * count) , 80,30, Color.black));
+				
+			}
+			count++;
 		}
 		
-		keys = new boolean[4];
+		keys = new boolean[5];
 		
     
     	setBackground(Color.WHITE);
@@ -66,35 +73,25 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		//we will draw all changes on the background image
 		Graphics graphToBack = back.createGraphics();
 
-
+		for(List<Tile> tileList: tileListList) {
+			for(Tile t : tileList) {
+				t.draw(graphToBack);
+			}
+		}
 		ball.moveAndDraw(graphToBack);
 		paddle.draw(graphToBack);
 
 		//see if ball hits left wall or right wall
-		if(!(ball.getX()>=10 && ball.getX()<=780))
+		if(ball.didCollideLRWall())
 		{
-			
-			ball.setXSpeed(0);
-			ball.setYSpeed(0);
-			ball.draw(graphToBack,Color.white);
-			if (ball.getX() <= 10) {
-				//score for player 2
-				System.out.println("Player 2 Scores");
-			}
-			if( ball.getX() >= 780) {
-				//score for player 1
-				System.out.println("Player 1 Scores");
-			}
-			ball = new Ball();
-			}
-
+				ball.setXSpeed(-1 * ball.getXSpeed());
+		}
 		
-		//see if the ball hits the top or bottom wall 
-		if(!(ball.getY()>=10 && ball.getY()<=540))
-		{
-			ball.setYSpeed(-ball.getYSpeed());
+		if(ball.didCollideTBWall()) {
+			ball.setYSpeed(-1 * ball.getYSpeed());
 		}
 
+		
 
 
 		//see if the ball hits the paddle on the ball's left side
@@ -107,11 +104,11 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		if(ball.didCollideRight(paddle))
 			ball.setXSpeed(-ball.getXSpeed());
 
-		for (Tile t : tiles) {
+		/*for (Tile t : tiles) {
 			if (ball.didCollideBottom(t)) {
 				System.out.println(0);
 			}
-		}
+		}*/
 		//see if the paddles need to be moved
 		if(keys[0] == true)
 		{
@@ -121,7 +118,7 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		if(keys[1] == true)
 		{
 			//move left paddle down and draw it on the window
-			paddle.moveUpAndDraw(graphToBack);
+			paddle.moveLeftAndDraw(graphToBack);
 
 		}
 		if(keys[2] == true)
@@ -133,13 +130,15 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		if(keys[3] == true)
 		{
 			//move right paddle down
-			paddle.moveDownAndDraw(graphToBack);
+			paddle.moveRightAndDraw(graphToBack);
 		}
-
+		if(keys[4] == true) {
+			//reset game?
+		}
 		twoDGraph.drawImage(back, null, 0, 0);
 	}
 
-	public void keyPressed(KeyEvent e)
+   public void keyPressed(KeyEvent e)
 	{
 		switch(toUpperCase(e.getKeyChar()))
 		{
@@ -147,6 +146,7 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 			case 'A' : keys[1]=true; break;
 			case 'S' : keys[2]=true; break;
 			case 'D' : keys[3]=true; break;
+			case 'R' : keys[4]=true; break;
 		}
 	}
 
@@ -158,6 +158,7 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 			case 'A' : keys[1]=false; break;
 			case 'S' : keys[2]=false; break;
 			case 'D' : keys[3]=false; break;
+			case 'R' : keys[4]=false; break;
 		}
 	}
 

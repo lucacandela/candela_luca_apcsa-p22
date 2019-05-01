@@ -109,10 +109,10 @@ public class Ball extends Block implements Collideable
 			 other = (Tile) obj;
 			
 		}
-		if((this.getX() <= other.getX() + this.getWidth() + Math.abs(this.getXSpeed())) &&
-				(this.getY() >= other.getY() && this.getY() <= other.getY() + other.getHeight()
-					|| this.getY()+this.getHeight() >= other.getY() && this.getY() + this.getHeight()
-					< other.getY() + other.getHeight())) {
+		if((this.getX() <= other.getX() + Math.abs(this.getXSpeed()) && this.getX() >= other.getX()) &&
+				(this.getY() <= other.getY() + other.getHeight() && this.getY() >= other.getY()
+					|| this.getY() >= other.getY() && this.getY() + this.getHeight()
+					<= other.getY() + other.getHeight())) {
 			System.out.println("didCollideLeft with " + obj.getClass().getName());
 			return true;
 		}
@@ -133,7 +133,7 @@ public class Ball extends Block implements Collideable
 			 other = (Tile) obj;
 			
 		}
-		if((this.getX() >= other.getX() && this.getX() <= other.getX() + other.getWidth())
+		if((this.getX() <= other.getX() + other.getWidth())
 				&& (this.getY() >= other.getY() && this.getY() <= other.getY() +other.getHeight()
 						|| this.getY() + this.getHeight() >= other.getY() && this.getY() + this.getHeight()
 						< other.getY() + other.getHeight())) {
@@ -170,13 +170,28 @@ public class Ball extends Block implements Collideable
 
 	@Override
 	public boolean didCollideBottom(Object obj) {
-		if(!(getY()>=590)) {
+		if((getY()>=590)) {
 			System.out.println("ball hit bottom");
 			return true;
 		}
 		return false;
 	}	
-	
+	public boolean didCollideLRWall() {
+		//	Left Wall				Right Wall
+		if(!(this.getX()>=10 && this.getX()<=780))
+		{
+			return true;
+		}
+		return false;
+	}
+	public boolean didCollideTBWall() {
+		//	Top Wall			Bottom Wall
+		if(!(this.getY()>=10 && this.getY()<=540))
+		{
+			return true;
+		}
+		return false;
+	}
 	
    //add a toString() method
 	public String toString() {

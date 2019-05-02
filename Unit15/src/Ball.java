@@ -109,7 +109,7 @@ public class Ball extends Block implements Collideable
 			 other = (Tile) obj;
 			
 		}
-		if((this.getX() <= other.getX() + Math.abs(this.getXSpeed()) && this.getX() >= other.getX()) &&
+		if((this.getX() >= other.getX()  && this.getX() <= other.getX() + Math.abs(this.getXSpeed())) &&
 				(this.getY() <= other.getY() + other.getHeight() && this.getY() >= other.getY()
 					|| this.getY() >= other.getY() && this.getY() + this.getHeight()
 					<= other.getY() + other.getHeight())) {
@@ -133,7 +133,7 @@ public class Ball extends Block implements Collideable
 			 other = (Tile) obj;
 			
 		}
-		if((this.getX() <= other.getX() + other.getWidth())
+		if((this.getX() <= other.getX() + other.getWidth() && this.getX() >= other.getX() + other.getWidth() - Math.abs(this.getXSpeed()))
 				&& (this.getY() >= other.getY() && this.getY() <= other.getY() +other.getHeight()
 						|| this.getY() + this.getHeight() >= other.getY() && this.getY() + this.getHeight()
 						< other.getY() + other.getHeight())) {

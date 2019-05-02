@@ -84,7 +84,7 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		//see if ball hits left wall or right wall
 		if(ball.didCollideLRWall())
 		{
-				ball.setXSpeed(-1 * ball.getXSpeed());
+			ball.setXSpeed(-1 * ball.getXSpeed());
 		}
 		
 		if(ball.didCollideTBWall()) {
@@ -94,16 +94,20 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		
 
 
-		//see if the ball hits the paddle on the ball's left side
+		//see if the ball hits the paddle on the paddle's left side
 		if(ball.didCollideLeft(paddle)) {
 			ball.setXSpeed(-ball.getXSpeed());
 		}
 		
 		
-		//see if ball hits paddle on the ball's right side
+		//see if ball hits paddle on the paddle's right side
 		if(ball.didCollideRight(paddle))
 			ball.setXSpeed(-ball.getXSpeed());
-
+		
+		//see if ball hits the paddle on the paddle's top side
+		if(ball.didCollideTop(paddle)) {
+			ball.setYSpeed(-ball.getYSpeed());
+		}
 		/*for (Tile t : tiles) {
 			if (ball.didCollideBottom(t)) {
 				System.out.println(0);

@@ -13,13 +13,13 @@ public class Ball extends Block implements Collideable
 	public Ball()
 	{
 		super(200,200);
-		xSpeed = 3;
+		xSpeed = 5;
 		ySpeed = 1;
 	}
 	
 	public Ball(int x, int y) {
 		super(x,y);
-		xSpeed = 3;
+		xSpeed = 5;
 		ySpeed = 1;
 	}
 	
@@ -31,7 +31,7 @@ public class Ball extends Block implements Collideable
 	
 	public Ball(int x, int y, int w, int h, Color col) {
 		super(x,y,w,h,col);
-		xSpeed = 3;
+		xSpeed = 5;
 		ySpeed = 1;
 	}
 	
@@ -109,7 +109,7 @@ public class Ball extends Block implements Collideable
 			 other = (Tile) obj;
 			
 		}
-		if((this.getX() >= other.getX()  && this.getX() <= other.getX() + Math.abs(this.getXSpeed())) &&
+		if((this.getX() + this.getWidth() >= other.getX()  && this.getX() + this.getWidth()<= other.getX() + Math.abs(this.getXSpeed())) &&
 				(this.getY() <= other.getY() + other.getHeight() && this.getY() >= other.getY()
 					|| this.getY() >= other.getY() && this.getY() + this.getHeight()
 					<= other.getY() + other.getHeight())) {
@@ -157,7 +157,7 @@ public class Ball extends Block implements Collideable
 			 other = (Tile) obj;
 			
 		}
-		if((this.getY() >= other.getY() && this.getY() <= other.getY() + other.getHeight())
+		if((this.getY() +this.getHeight()>= other.getY() && this.getY() + this.getHeight() <= other.getY() + Math.abs(this.getYSpeed()))
 				&& (this.getX() >= other.getX() && this.getX() <= other.getX() +other.getWidth()
 						|| this.getX() + this.getWidth() >= other.getX() && this.getX() + this.getWidth()
 						< other.getX() + other.getWidth())) {
@@ -170,8 +170,22 @@ public class Ball extends Block implements Collideable
 
 	@Override
 	public boolean didCollideBottom(Object obj) {
-		if((getY()>=590)) {
-			System.out.println("ball hit bottom");
+		Block other = (Block) obj;
+		if (obj.getClass().getSimpleName().equals("Paddle")) {
+			
+			 other = (Paddle) obj;
+			
+		
+		}
+		else if (obj.getClass().getSimpleName().equals("Tile")) {
+			 other = (Tile) obj;
+			
+		}
+		if((this.getY() >= other.getY()+other.getHeight() - Math.abs(this.getYSpeed()) && this.getY() <= other.getY() + other.getHeight())
+				&& (this.getX() >= other.getX() && this.getX() <= other.getX() +other.getWidth()
+						|| this.getX() + this.getWidth() >= other.getX() && this.getX() + this.getWidth()
+						< other.getX() + other.getWidth())) {
+			System.out.println("didCollideBot with " + obj.getClass().getName());
 			return true;
 		}
 		return false;

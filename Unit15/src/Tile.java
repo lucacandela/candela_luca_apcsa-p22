@@ -19,7 +19,11 @@ public class Tile extends Block {
 		super(x,y,w,h,col);
 	}
 	
+	public boolean isDestroyed() {
+		return destroyed;
+	}
 	public void destroy() {
+		destroyed = true;
 	}
 	
 	

@@ -75,7 +75,8 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 
 		for(List<Tile> tileList: tileListList) {
 			for(Tile t : tileList) {
-				t.draw(graphToBack);
+				if (t.isDestroyed() != true)
+					t.draw(graphToBack);
 			}
 		}
 		ball.moveAndDraw(graphToBack);
@@ -101,18 +102,32 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		
 		
 		//see if ball hits paddle on the paddle's right side
-		if(ball.didCollideRight(paddle))
+		else if(ball.didCollideRight(paddle))
 			ball.setXSpeed(-ball.getXSpeed());
 		
 		//see if ball hits the paddle on the paddle's top side
-		if(ball.didCollideTop(paddle)) {
+		else if(ball.didCollideTop(paddle)) {
 			ball.setYSpeed(-ball.getYSpeed());
 		}
-		/*for (Tile t : tiles) {
-			if (ball.didCollideBottom(t)) {
-				System.out.println(0);
+		
+		//see if ball hits the paddle on the bottom side
+		else if(ball.didCollideBottom(paddle)) {
+			ball.setYSpeed(-ball.getYSpeed());
+		}
+		for (List<Tile> tileList : tileListList) {
+			for (Tile t : tileList) {
+				if (t.isDestroyed() != true && (ball.didCollideBottom(t) || ball.didCollideBottom(t))) {
+					ball.setYSpeed(-ball.getYSpeed());
+					t.destroy();
+					t.draw(graphToBack, Color.white);
+				}
+				else if (t.isDestroyed() != true &&(ball.didCollideLeft(t) || ball.didCollideRight(t)) ){
+					ball.setXSpeed(-ball.getXSpeed());
+					t.destroy();
+					t.draw(graphToBack, Color.white);
+				}
 			}
-		}*/
+		}
 		//see if the paddles need to be moved
 		if(keys[0] == true)
 		{

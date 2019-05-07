@@ -14,25 +14,25 @@ public class Ball extends Block implements Collideable
 	{
 		super(200,200);
 		xSpeed = 5;
-		ySpeed = 1;
+		ySpeed = -1;
 	}
 	
 	public Ball(int x, int y) {
 		super(x,y);
 		xSpeed = 5;
-		ySpeed = 1;
+		ySpeed = -1;
 	}
 	
 	public Ball(int x, int y, int w, int h) {
 		super(x,y,w,h);
 		xSpeed = 3;
-		ySpeed = 1;
+		ySpeed = -1;
 	}
 	
 	public Ball(int x, int y, int w, int h, Color col) {
 		super(x,y,w,h,col);
 		xSpeed = 5;
-		ySpeed = 1;
+		ySpeed = -1;
 	}
 	
 	public Ball(int x, int y, int w, int h, Color col, int xs, int ys) {
@@ -68,7 +68,12 @@ public class Ball extends Block implements Collideable
 		ySpeed = s;
 	}
    
-
+	public void resetToStart(Graphics window, int x, int y) {
+		draw(window, Color.white);
+		setX(x);
+		setY(y);
+		draw(window);
+	}
    public void moveAndDraw(Graphics window)
    {
    	//draw a white ball at old ball location

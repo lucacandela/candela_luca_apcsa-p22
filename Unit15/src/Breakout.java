@@ -19,38 +19,27 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 {
 	private Ball ball;
 	private Paddle paddle;
-	private List<List<Tile>> tileListList;
+	private List<List<Tile>> currentTiles, levelOneTiles, levelTwoTiles, levelThreeTiles;
 	private boolean[] keys;
 	private BufferedImage back;
-
+	private int tileCount = 0;
+	private int tilesDestroyed = 0;
+	private int level;
 
 	public Breakout()
 	{
 		//set up all variables related to the game
-		ball = new Ball();		
+		ball = new Ball(400,275-50,10,10,20,-1);		
 		
 		//instantiate player paddle
-		paddle = new Paddle(30,100,100,30, Color.blue);
-		
-		tileListList = new ArrayList<List<Tile>>();
-		int count = 0;
-		for(int i = 0; i < 5; i++) {
-			tileListList.add(new ArrayList<Tile>());
-		}
-		for( List<Tile> tileList : tileListList) {
-			for (int i = 0; i < 5; i++) {
-				tileList.add(new Tile(20 + (80 *i) + (5*i), 20 + (35 * count) , 80,30, Color.black));
-				
-			}
-			count++;
-		}
+		paddle = new Paddle(400-20,275+20,40,40, Color.blue);
 		
 		keys = new boolean[5];
 		
-    
+		setLevelOneTiles();
     	setBackground(Color.WHITE);
 		setVisible(true);
-		
+		level = 0;
 		new Thread(this).start();
 		addKeyListener(this);		//starts the key thread to log key strokes
 	}
@@ -58,7 +47,69 @@ public class Breakout extends Canvas implements KeyListener, Runnable
    public void update(Graphics window){
 	   paint(window);
    }
-
+   public void setLevelOneTiles() {
+	  
+	   level = 1;
+	   tileCount = 0;
+	   levelOneTiles = new ArrayList<List<Tile>>();
+	   List<Tile> temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 7; col++) {
+		   for (int row = 0; row < 2; row++) {
+			   temp.add(new Tile(101+(80 * col) + (2 * col), 20 + (65 * row), 80, 30, Color.black));
+			   tileCount++;
+		   }
+	   }
+	   levelOneTiles.add(temp);
+	   temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 7; col++) {
+		   for (int row = 0; row < 2; row++) {
+			   temp.add(new Tile(101 +(80 * col) + (2 * col), 550-40 - (65 * row), 80, 30, Color.black));
+			   tileCount++;
+		   }
+	   }
+	   levelOneTiles.add(temp);
+	   temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 2; col++) {
+		   for (int row = 0; row < 6; row++){
+			   temp.add(new Tile(20 + (35 * col) + (2 * col),20 + (90 * row), 30,80, Color.BLACK));
+			   tileCount++;
+		   }
+	   }
+	   levelOneTiles.add(temp);
+	   currentTiles = levelOneTiles;
+	   /*(for( List<Tile> tileList : tileListList) {
+			for (int col = 0; col < 6; col++) {
+				for (int row = 0; row < 2; row++) {
+				tileList.add(new Tile(20 + (80 *col) + (5*col), 20 + (35 * ) , 80,30, Color.black));
+				}
+			}
+			if (count)
+			count++;
+		}*/
+   }
+   
+   public void setLevelTwoTiles() {
+	   level = 2;
+	   tileCount = 0;
+	   levelTwoTiles = new ArrayList<List<Tile>>();
+	   List<Tile> temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 7; col++) {
+		   for (int row = 0; row < 2; row++) {
+			   temp.add(new Tile(101+(80 * col) + (2 * col), 20 + (65 * row), 80, 30, Color.black));
+			   tileCount++;
+		   }
+	   }
+	   levelTwoTiles.add(temp);
+	   temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 7; col++) {
+		   for (int row = 0; row < 2; row++) {
+			   temp.add(new Tile(101 +(80 * col) + (2 * col), 550-40 - (65 * row), 80, 30, Color.black));
+			   tileCount++;
+		   }
+	   }
+	   levelOneTiles.add(temp);
+	   currentTiles = levelOneTiles;
+   }
    public void paint(Graphics window)
    {
 		//set up the double buffering to make the game animation nice and smooth
@@ -72,8 +123,8 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		//create a graphics reference to the back ground image
 		//we will draw all changes on the background image
 		Graphics graphToBack = back.createGraphics();
-
-		for(List<Tile> tileList: tileListList) {
+		
+		for(List<Tile> tileList: currentTiles) {
 			for(Tile t : tileList) {
 				if (t.isDestroyed() != true)
 					t.draw(graphToBack);
@@ -96,38 +147,47 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 
 
 		//see if the ball hits the paddle on the paddle's left side
-		if(ball.didCollideLeft(paddle)) {
+		if(ball.didCollideLeft(paddle) || ball.didCollideRight(paddle)) {
 			ball.setXSpeed(-ball.getXSpeed());
 		}
-		
-		
-		//see if ball hits paddle on the paddle's right side
-		else if(ball.didCollideRight(paddle))
-			ball.setXSpeed(-ball.getXSpeed());
-		
-		//see if ball hits the paddle on the paddle's top side
-		else if(ball.didCollideTop(paddle)) {
+		else if(ball.didCollideBottom(paddle) || ball.didCollideTop(paddle)) {
 			ball.setYSpeed(-ball.getYSpeed());
 		}
+		else {}
 		
-		//see if ball hits the paddle on the bottom side
-		else if(ball.didCollideBottom(paddle)) {
-			ball.setYSpeed(-ball.getYSpeed());
+		if (tilesDestroyed == tileCount) {
+			
+			tilesDestroyed = 0;
+			if (level == 1) {
+				setLevelTwoTiles();
+				ball.resetToStart(graphToBack, 400, 275);
+				
+			}
 		}
-		for (List<Tile> tileList : tileListList) {
+		System.out.print("Total: " + tileCount + ", ");
+		System.out.println("Destroyed: " + tilesDestroyed);
+		
+		for (List<Tile> tileList : currentTiles) {
 			for (Tile t : tileList) {
-				if (t.isDestroyed() != true && (ball.didCollideBottom(t) || ball.didCollideBottom(t))) {
+				if (t.isDestroyed() != true && (ball.didCollideBottom(t) || ball.didCollideTop(t))) {
 					ball.setYSpeed(-ball.getYSpeed());
 					t.destroy();
 					t.draw(graphToBack, Color.white);
+					tilesDestroyed++;
 				}
 				else if (t.isDestroyed() != true &&(ball.didCollideLeft(t) || ball.didCollideRight(t)) ){
 					ball.setXSpeed(-ball.getXSpeed());
 					t.destroy();
 					t.draw(graphToBack, Color.white);
+					tilesDestroyed++;
 				}
+				else {}
 			}
 		}
+		
+		
+		
+		
 		//see if the paddles need to be moved
 		if(keys[0] == true)
 		{

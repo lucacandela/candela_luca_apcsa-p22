@@ -24,12 +24,12 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 	private BufferedImage back;
 	private int tileCount = 0;
 	private int tilesDestroyed = 0;
-	private int level;
+	private int level = 0;
 
 	public Breakout()
 	{
 		//set up all variables related to the game
-		ball = new Ball(400,275-50,10,10,20,-1);		
+		ball = new Ball(400,(550/2),10,10,3,-1);		
 		
 		//instantiate player paddle
 		paddle = new Paddle(400-20,275+20,40,40, Color.blue);
@@ -39,7 +39,7 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		setLevelOneTiles();
     	setBackground(Color.WHITE);
 		setVisible(true);
-		level = 0;
+		level = 1;
 		new Thread(this).start();
 		addKeyListener(this);		//starts the key thread to log key strokes
 	}
@@ -47,10 +47,11 @@ public class Breakout extends Canvas implements KeyListener, Runnable
    public void update(Graphics window){
 	   paint(window);
    }
-   public void setLevelOneTiles() {
+   public void setLevelTwoTiles() {
 	  
 	   level = 1;
 	   tileCount = 0;
+	   tilesDestroyed = 0;
 	   levelOneTiles = new ArrayList<List<Tile>>();
 	   List<Tile> temp = new ArrayList<Tile>();
 	   for (int col = 0; col < 7; col++) {
@@ -76,39 +77,56 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		   }
 	   }
 	   levelOneTiles.add(temp);
-	   currentTiles = levelOneTiles;
-	   /*(for( List<Tile> tileList : tileListList) {
-			for (int col = 0; col < 6; col++) {
-				for (int row = 0; row < 2; row++) {
-				tileList.add(new Tile(20 + (80 *col) + (5*col), 20 + (35 * ) , 80,30, Color.black));
-				}
-			}
-			if (count)
-			count++;
-		}*/
-   }
-   
-   public void setLevelTwoTiles() {
-	   level = 2;
-	   tileCount = 0;
-	   levelTwoTiles = new ArrayList<List<Tile>>();
-	   List<Tile> temp = new ArrayList<Tile>();
-	   for (int col = 0; col < 7; col++) {
-		   for (int row = 0; row < 2; row++) {
-			   temp.add(new Tile(101+(80 * col) + (2 * col), 20 + (65 * row), 80, 30, Color.black));
-			   tileCount++;
-		   }
-	   }
-	   levelTwoTiles.add(temp);
 	   temp = new ArrayList<Tile>();
-	   for (int col = 0; col < 7; col++) {
-		   for (int row = 0; row < 2; row++) {
-			   temp.add(new Tile(101 +(80 * col) + (2 * col), 550-40 - (65 * row), 80, 30, Color.black));
+	   for (int col = 0; col < 2; col++) {
+		   for (int row = 0; row < 6; row++){
+			   temp.add(new Tile(20 + (82 * 8) + (35 * col) + (2 * col),20 + (90 * row), 30,80, Color.BLACK));
 			   tileCount++;
 		   }
 	   }
 	   levelOneTiles.add(temp);
 	   currentTiles = levelOneTiles;
+	   
+   }
+   
+   public void setLevelOneTiles() {
+	   level = 2;
+	   tileCount = 0;
+	   tilesDestroyed =0;
+	   levelTwoTiles = new ArrayList<List<Tile>>();
+	   List<Tile> temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 5; col++) {
+		   for (int row = 0; row < 2; row++) {
+			   temp.add(new Tile(181+(80 * col) + (2 * col), (550/2)-100 + (35 * row), 80, 30, Color.black));
+			   tileCount++;
+		   }
+	   }
+	   levelTwoTiles.add(temp);
+	   temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 5; col++) {
+		   for (int row = 0; row < 2; row++) {
+			   temp.add(new Tile(181 +(80 * col) + (2 * col), (550/2) + 100 - (35 * row), 80, 30, Color.black));
+			   tileCount++;
+		   }
+	   }
+	   levelTwoTiles.add(temp);
+	   temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 2; col++) {
+		   for (int row = 0; row < 3; row++){
+			   temp.add(new Tile(181 - 70 + (35 * col) + (2 * col),(550/2) - 100 + (85 * row), 30,80, Color.BLACK));
+			   tileCount++;
+		   }
+	   }
+	   levelTwoTiles.add(temp);
+	   temp = new ArrayList<Tile>();
+	   for (int col = 0; col < 2; col++) {
+		   for (int row = 0; row < 3; row++){
+			   temp.add(new Tile((181 - 100 + (85 * 6)) + (35 * col) + (2 * col),(550/2) - 100 + (85 * row), 30,80, Color.BLACK));
+			   tileCount++;
+		   }
+	   }
+	   levelTwoTiles.add(temp);
+	   currentTiles = levelTwoTiles;
    }
    public void paint(Graphics window)
    {
@@ -157,13 +175,13 @@ public class Breakout extends Canvas implements KeyListener, Runnable
 		
 		if (tilesDestroyed == tileCount) {
 			
-			tilesDestroyed = 0;
 			if (level == 1) {
 				setLevelTwoTiles();
 				ball.resetToStart(graphToBack, 400, 275);
 				
 			}
 		}
+		System.out.print("Level = " + level + ", ");
 		System.out.print("Total: " + tileCount + ", ");
 		System.out.println("Destroyed: " + tilesDestroyed);
 		

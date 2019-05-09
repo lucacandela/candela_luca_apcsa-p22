@@ -13,17 +13,20 @@ import static java.lang.Character.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OuterSpace extends Canvas implements KeyListener, Runnable
 {
 	private Ship ship;
 	private Alien alienOne;
 	private Alien alienTwo;
-
+	private Bullets shots;
+	private List<Ammo> bullets;
+	
 	/* uncomment once you are ready for this part
 	 *
    private AlienHorde horde;
-	private Bullets shots;
+	
 	*/
 
 	private boolean[] keys;
@@ -37,7 +40,12 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 		//instantiate other instance variables
 		//Ship, Alien
-
+		ship = new Ship((800/2),(600/2),(50),(50),3);
+		
+		shots = new Bullets();
+		bullets = shots.getList();
+		alienOne = new Alien(200, 100, 50,50, 5);
+		alienTwo = new Alien(400,100,50,50,5);
 		this.addKeyListener(this);
 		new Thread(this).start();
 
@@ -62,17 +70,40 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		//create a graphics reference to the back ground image
 		//we will draw all changes on the background image
 		Graphics graphToBack = back.createGraphics();
-
+		
 		graphToBack.setColor(Color.BLUE);
 		graphToBack.drawString("StarFighter ", 25, 50 );
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.fillRect(0,0,800,600);
-
+		ship.draw(graphToBack);
+		alienOne.draw(graphToBack);
+		alienTwo.draw(graphToBack);
+		bullets = shots.getList();
+		for (Ammo b : bullets) {
+			b.moveAndDraw(graphToBack);
+		}
+		shots.moveEmAll();
+		shots.drawEmAll(graphToBack);
+		
 		if(keys[0] == true)
 		{
 			ship.move("LEFT");
 		}
-
+		if(keys[1] == true)
+		{
+			ship.move("RIGHT");
+		}
+		if(keys[2] == true)
+		{
+			ship.move("UP");
+		}
+		if(keys[3] == true)
+		{
+			ship.move("DOWN");
+		}
+		if(keys[4] == true) {
+			shots.addBullet(ship.blast(graphToBack));
+		}
 		//add code to move Ship, Alien, etc.
 
 

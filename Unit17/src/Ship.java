@@ -13,20 +13,20 @@ public class Ship extends MovingThing
 {
 	private int speed;
 	private Image image;
-
+	private Ammo ammo;
 	public Ship()
 	{
-		this(10,10,10,10,10);
+		this(10,10,100,100,5);
 	}
 
 	public Ship(int x, int y)
 	{
-	   //add code here
+	   this(x,y,100,100,5);
 	}
 
 	public Ship(int x, int y, int s)
 	{
-	   //add code here
+		this(x,y,100,100,s);
 	}
 
 	public Ship(int x, int y, int w, int h, int s)
@@ -35,29 +35,46 @@ public class Ship extends MovingThing
 		speed=s;
 		try
 		{
-			URL url = getClass().getResource("/images/ship.jpg");
+			URL url = getClass().getResource("images/ship.jpg");
 			image = ImageIO.read(url);
 		}
 		catch(Exception e)
 		{
-			//feel free to do something here
+			System.out.println("error loading images");		
 		}
 	}
 
 
 	public void setSpeed(int s)
 	{
-	   //add more code
+		speed = s;
 	}
 
 	public int getSpeed()
 	{
-	   return 0;
+	   return speed;
 	}
 
 	public void move(String direction)
 	{
-		//add code here
+		if (direction.equalsIgnoreCase("right")) {
+			setX(getX() + getSpeed());
+			
+		}
+		if (direction.equalsIgnoreCase("left")) {
+			setX(getX() - getSpeed());
+		}
+		if (direction.equalsIgnoreCase("up")) {
+			setY(getY() - getSpeed());
+		}
+		if (direction.equalsIgnoreCase("down")) {
+			setY(getY() + getSpeed());
+		}
+	}
+	public Ammo blast(Graphics window) {
+		ammo = new Ammo((getX() + (getWidth()/2)), (getY()));
+		ammo.setX(ammo.getX() - ammo.getWidth()/2);
+		return ammo;
 	}
 
 	public void draw( Graphics window )

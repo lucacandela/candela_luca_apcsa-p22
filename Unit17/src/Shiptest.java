@@ -12,7 +12,9 @@ public class Shiptest
     {
         MovingThing test = new Ship();
         System.out.println("Ship 1 " + test);
-
+        test.move("left");
+        System.out.println("move Ship 1 left");
+        System.out.println("Ship 1 " + test);
         Ship test2 = new Ship(50,75);
         System.out.println("Ship 2 " + test2);
 

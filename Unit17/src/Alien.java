@@ -13,26 +13,29 @@ public class Alien extends MovingThing
 {
 	private int speed;
 	private Image image;
-
+	private int health;
 	public Alien()
 	{
-		this(0,0,30,30,0);
+		this(0,0,30,30,0,5);
 	}
 
 	public Alien(int x, int y)
 	{
-		this(x,y,30,30,0);
+		this(x,y,30,30,0,5);
 	}
 
 	public Alien(int x, int y, int s)
 	{
-		this(x,y,30,30,s);
+		this(x,y,30,30,s,5);
 	}
-
-	public Alien(int x, int y, int w, int h, int s)
+	public Alien(int x, int y, int w, int h, int s) {
+		this(x,y,w,h,s,5);
+	}
+	public Alien(int x, int y, int w, int h, int s, int hp)
 	{
 		super(x, y, w,h);
 		speed=s;
+		health = hp;
 		try
 		{
 			URL url = getClass().getResource("images/alien.jpg");
@@ -53,7 +56,14 @@ public class Alien extends MovingThing
 	{
 	   return speed;
 	}
-
+	public void setHealth(int hp) {
+		health = hp;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
    public void move(String direction)
 	{
 	   if (direction.equalsIgnoreCase("left")) {

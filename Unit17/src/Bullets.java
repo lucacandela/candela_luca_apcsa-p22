@@ -41,7 +41,33 @@ public class Bullets
 
 	public void cleanEmUp()
 	{
+		for (Ammo bullet : ammo) {
+			if (bullet.getY() <= 0) {
+				ammo.remove(bullet);
+			}
+		}
+	}
+	
+	public boolean hitObject(Object obj) {
+		MovingThing other = (MovingThing) obj;
+		if (obj.getClass().getName().equals("Alien")) {
+			other = (Alien) obj;
+		}
+		else if (obj.getClass().getName().equals("Ship")) {
+			other = (Ship) obj;
+		}
 		
+		else if (obj.getClass().getName().equals("Ammo")) {
+			other = (Ammo) obj;
+		}
+		for (Ammo bullet : ammo) {
+			if ((bullet.getY() <= other.getY() + other.getHeight() && bullet.getY() >= other.getY())
+			&& (bullet.getX() <= other.getX() + other.getWidth() && bullet.getX() >=other.getX()) ) {
+				ammo.remove(bullet);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Ammo> getList()

@@ -18,19 +18,15 @@ import java.util.List;
 public class OuterSpace extends Canvas implements KeyListener, Runnable
 {
 	private Ship ship;
-	private Alien alienOne;
-	private Alien alienTwo;
 	private Bullets shots;
 
 
 	private boolean bulletFired;
 	private int bulletTimer;
 	
-	/* uncomment once you are ready for this part
-	 *
-   private AlienHorde horde;
+
+	private AlienHorde horde;
 	
-	*/
 
 	private boolean[] keys;
 	private BufferedImage back;
@@ -47,9 +43,8 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		
 		shots = new Bullets();
 
-		alienOne = new Alien(200, 100, 50,50, 5);
-		alienTwo = new Alien(400,100,50,50,5);
-
+		horde = new AlienHorde(5);
+		
 		bulletFired = false;
 		bulletTimer = 0;
 		this.addKeyListener(this);
@@ -81,12 +76,12 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.fillRect(0,0,800,600);
 		ship.draw(graphToBack);
-		alienOne.draw(graphToBack);
-		alienTwo.draw(graphToBack);
+		horde.moveEmAll();
+		horde.drawEmAll(graphToBack);
 		
 		if (bulletFired = true) {
 			bulletTimer++;
-			if (bulletTimer >= 200) {
+			if (bulletTimer >= 20) { // 200 = 1s as the scene is repainted every 5ms
 				bulletTimer = 0;
 				bulletFired = false;
 			}
@@ -94,7 +89,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		
 		shots.moveEmAll();
 		shots.drawEmAll(graphToBack);
-		
+		shots.cleanEmUp();
 		
 		if(keys[0] == true)
 		{
@@ -124,7 +119,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 		//add code to move Ship, Alien, etc.
 
-
+	
 		//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
 
 

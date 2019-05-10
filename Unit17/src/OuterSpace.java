@@ -21,7 +21,10 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 	private Alien alienOne;
 	private Alien alienTwo;
 	private Bullets shots;
-	private List<Ammo> bullets;
+
+
+	private boolean bulletFired;
+	private int bulletTimer;
 	
 	/* uncomment once you are ready for this part
 	 *
@@ -43,12 +46,14 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		ship = new Ship((800/2),(600/2),(50),(50),3);
 		
 		shots = new Bullets();
-		bullets = shots.getList();
+
 		alienOne = new Alien(200, 100, 50,50, 5);
 		alienTwo = new Alien(400,100,50,50,5);
+
+		bulletFired = false;
+		bulletTimer = 0;
 		this.addKeyListener(this);
 		new Thread(this).start();
-
 		setVisible(true);
 	}
 
@@ -72,18 +77,24 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		Graphics graphToBack = back.createGraphics();
 		
 		graphToBack.setColor(Color.BLUE);
-		graphToBack.drawString("StarFighter ", 25, 50 );
+		graphToBack.drawString("StarFighter", 25, 50 );
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.fillRect(0,0,800,600);
 		ship.draw(graphToBack);
 		alienOne.draw(graphToBack);
 		alienTwo.draw(graphToBack);
-		bullets = shots.getList();
-		for (Ammo b : bullets) {
-			b.moveAndDraw(graphToBack);
+		
+		if (bulletFired = true) {
+			bulletTimer++;
+			if (bulletTimer >= 200) {
+				bulletTimer = 0;
+				bulletFired = false;
+			}
 		}
+		
 		shots.moveEmAll();
 		shots.drawEmAll(graphToBack);
+		
 		
 		if(keys[0] == true)
 		{
@@ -102,8 +113,15 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 			ship.move("DOWN");
 		}
 		if(keys[4] == true) {
-			shots.addBullet(ship.blast(graphToBack));
+			
+			if (bulletFired == false) {
+				shots.addBullet(ship.blast(graphToBack));
+				bulletFired = true;
+			}
 		}
+		
+		
+
 		//add code to move Ship, Alien, etc.
 
 
@@ -135,6 +153,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		if (e.getKeyCode() == KeyEvent.VK_SPACE)
 		{
 			keys[4] = true;
+			
 		}
 		repaint();
 	}

@@ -22,7 +22,7 @@ public class Ammo extends MovingThing
 
 	public Ammo(int x, int y)
 	{
-		this(x,y,0);
+		this(x,y,3);
 	}
 
 	public Ammo(int x, int y, int s)
@@ -60,9 +60,7 @@ public class Ammo extends MovingThing
 	
 	public void move( String direction )
 	{
-		if (direction.equalsIgnoreCase("up")) {
 			setY(getY() - getSpeed());
-		}
 	}
 
 	public String toString()

@@ -15,6 +15,7 @@ public class Ammo extends MovingThing
 	private int speed;
 	private Image image;
 	private Color col;
+	private boolean deleted;
 	public Ammo()
 	{
 		this(0,0,0);
@@ -30,9 +31,16 @@ public class Ammo extends MovingThing
 		super(x,y,10,10);
 		speed = s;
 		col = Color.yellow;
+		deleted = false;
 		
 	}
-
+	public void delete() {
+		deleted = true;
+		
+	}
+	public boolean isDeleted() {
+		return deleted;
+	}
 	public void setSpeed(int s)
 	{
 	   speed = s;

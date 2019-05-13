@@ -75,7 +75,7 @@ public class Alien extends MovingThing
 	   }
 
 	   if (direction.equalsIgnoreCase("down")) {
-		   setY(getY() + getSpeed());
+		   setY(getY() + 50);
 	   }
 	}
 

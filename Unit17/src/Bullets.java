@@ -13,23 +13,35 @@ import java.util.List;
 public class Bullets
 {
 	private List<Ammo> ammo;
-
-	public Bullets()
+	private int ammoSize;
+	public Bullets() {
+		this(100);
+	}
+	public Bullets(int s)
 	{
 		ammo = new ArrayList<Ammo>();
+		ammoSize = s;
 	}
-
+	
+	public int getSize() {
+		return ammoSize;
+	}
+	public void setSize(int s) {
+		ammoSize = s;
+	}
 	public void addBullet(Ammo al)
 	{
 		ammo.add(al);
+		setSize(getSize() -1);
 	}
 
 	//post - draw each Ammo
 	public void drawEmAll( Graphics window )
 	{
 		for (Ammo bullet : ammo) {
-			bullet.draw(window);
-		}
+			if (!bullet.isDeleted())
+				bullet.draw(window);
+			}
 	}
 
 	public void moveEmAll()
@@ -39,16 +51,19 @@ public class Bullets
 		}
 	}
 
-	public void cleanEmUp()
+	public void cleanEmUp( Graphics window)
 	{
+		List<Ammo> deletedBullets = new ArrayList<Ammo>();
 		for (Ammo bullet : ammo) {
 			if (bullet.getY() <= 0) {
-				ammo.remove(bullet);
+				deletedBullets.add(bullet);
 			}
 		}
+		deleteBullets(deletedBullets);
 	}
 	
 	public boolean hitObject(Object obj) {
+		List<Ammo> deadBullets = new ArrayList<Ammo>();
 		MovingThing other = (MovingThing) obj;
 		if (obj.getClass().getName().equals("Alien")) {
 			other = (Alien) obj;
@@ -63,13 +78,24 @@ public class Bullets
 		for (Ammo bullet : ammo) {
 			if ((bullet.getY() <= other.getY() + other.getHeight() && bullet.getY() >= other.getY())
 			&& (bullet.getX() <= other.getX() + other.getWidth() && bullet.getX() >=other.getX()) ) {
-				ammo.remove(bullet);
-				return true;
+				deadBullets.add(bullet);
+				
+				System.out.println("hit " + obj.getClass().getName());
+				
 			}
 		}
+		if (!deadBullets.isEmpty()) {
+			deleteBullets(deadBullets);
+			return true;
+		}
+		
 		return false;
 	}
-
+	
+	public void deleteBullets(List<Ammo> bullets) {
+		ammo.removeAll(bullets);
+		
+	}
 	public List<Ammo> getList()
 	{
 		return ammo;

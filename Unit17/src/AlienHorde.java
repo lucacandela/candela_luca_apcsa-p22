@@ -18,7 +18,7 @@ public class AlienHorde
 	{
 		aliens = new ArrayList<Alien>();
 		for (int i = 0; i < size; i++) {
-			aliens.add(new Alien(50 + (70 * i), 100, 50,50, 5));
+			aliens.add(new Alien(50 + (70 * i), 100, 50,50, 1));
 		}
 	}
 
@@ -38,22 +38,32 @@ public class AlienHorde
 	{
 		int rand = (int)(Math.random() * 2) + 1;
 		for (Alien a : aliens) {
-			if (rand == 1) {
-				a.move("left");
-			}
-			else if (rand == 2) {
+			if (a.getY() % 20 == 0 && a.getX() <= 790 ) {
 				a.move("right");
 			}
-			else if (rand == 3) {
+			else if (a.getY() % 10 == 0 && a.getX() >= 10) {
+				a.move("left");
+			}
+			if (a.getX() <= 10 || a.getX() >= 790) {
 				a.move("down");
 			}
 		}
 	}
 
-	public void removeDeadOnes(List<Ammo> shots)
-	{
+	public void removeDeadOnes()
+	{	
+		List<Alien> deadAliens = new ArrayList<Alien>();
+		for (Alien a : aliens ) {
+			if (a.getHealth() == 0) {
+				deadAliens.add(a);
+			}
+		}
+		if (!deadAliens.isEmpty())
+			aliens.removeAll(deadAliens);
 	}
-
+	public List<Alien> getAliens(){
+		return aliens;
+	}
 	public String toString()
 	{
 		return "";

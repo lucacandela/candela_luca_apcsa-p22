@@ -38,13 +38,14 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 		keys = new boolean[5];
 		ammoNum = 100;
+		
 		//instantiate other instance variables
 		//Ship, Alien
-		ship = new Ship((800/2),(600/2),(50),(50),3);
+		ship = new Ship((800/2),(500),(50),(50),3);
 		
 		shots = new Bullets(ammoNum); //ship gets 
 
-		horde = new AlienHorde(5);
+		horde = new AlienHorde(); //rows of aliens to spawn
 		
 		bulletFired = false;
 		bulletTimer = 0;
@@ -76,60 +77,65 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		graphToBack.drawString("StarFighter", 25, 50 );
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.fillRect(0,0,800,600);
-		ship.draw(graphToBack);
-		horde.moveEmAll();
-		horde.drawEmAll(graphToBack);
-		
-		if (bulletFired = true) {
-			bulletTimer++;
-			if (bulletTimer >= 20) { // 200 = 1s as the scene is repainted every 5ms
-				bulletTimer = 0;
-				bulletFired = false;
-			}
-		}
-		
-		shots.moveEmAll();
-		shots.drawEmAll(graphToBack);
-		shots.cleanEmUp(graphToBack);
-		
-		if(keys[0] == true)
-		{
-			ship.move("LEFT");
-		}
-		if(keys[1] == true)
-		{
-			ship.move("RIGHT");
-		}
-		if(keys[2] == true)
-		{
-			ship.move("UP");
-		}
-		if(keys[3] == true)
-		{
-			ship.move("DOWN");
-		}
-		if(keys[4] == true) {
+		if(ship.isShipDead() == false) {
+			ship.draw(graphToBack);
+			horde.moveEmAll();
+			horde.drawEmAll(graphToBack);
 			
-			if (bulletFired == false && shots.getSize() > 0) {
-				shots.addBullet(ship.blast(graphToBack));
-				bulletFired = true;
+			if (bulletFired = true) {
+				bulletTimer++;
+				if (bulletTimer >= 20) { // 200 = 1s as the scene is repainted every 5ms
+					bulletTimer = 0;
+					bulletFired = false;
+				}
 			}
-		}
-		
-		alienList = horde.getAliens();
-		
-
-		//add code to move Ship, Alien, etc.
-
+			
+			shots.moveEmAll();
+			shots.drawEmAll(graphToBack);
+			shots.cleanEmUp(graphToBack);
+			
+			if(keys[0] == true)
+			{
+				ship.move("LEFT");
+			}
+			if(keys[1] == true)
+			{
+				ship.move("RIGHT");
+			}
+			if(keys[2] == true)
+			{
+				ship.move("UP");
+			}
+			if(keys[3] == true)
+			{
+				ship.move("DOWN");
+			}
+			if(keys[4] == true) {
+				
+				if (bulletFired == false && shots.getSize() > 0) {
+					shots.addBullet(ship.blast(graphToBack));
+					bulletFired = true;
+				}
+			}
+			
+			alienList = horde.getAliens();
+			
 	
-		//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
-		for (Alien a : alienList) {
-			if (shots.hitObject(a)) {
-				a.setHealth(a.getHealth()-1);
-				horde.removeDeadOnes();
+			//add code to move Ship, Alien, etc.
+			if (horde.hitShip(ship)) {
+				ship.killShip();
+				System.out.println("Ship Destroyed");
 			}
+		
+			//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
+			for (Alien a : alienList) {
+				if (shots.hitObject(a)) {
+					a.setHealth(a.getHealth()-1);
+					
+				}
+			}
+			horde.removeDeadOnes();
 		}
-
 		twoDGraph.drawImage(back, null, 0, 0);
 	}
 

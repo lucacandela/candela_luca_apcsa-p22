@@ -13,15 +13,22 @@ import java.util.List;
 public class AlienHorde
 {
 	private List<Alien> aliens;
-
+	public AlienHorde() {
+		this(3,1);
+	}
 	public AlienHorde(int size)
 	{
+		this(size,1);
+	}
+	
+	public AlienHorde(int size, int health) {
 		aliens = new ArrayList<Alien>();
-		for (int i = 0; i < size; i++) {
-			aliens.add(new Alien(50 + (70 * i), 100, 50,50, 1));
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < 750/55; col++) {
+				aliens.add(new Alien(50 + (55 * col), 50 * row, 50,50, 1,health));
+			}
 		}
 	}
-
 	public void add(Alien al)
 	{
 		aliens.add(al);
@@ -50,6 +57,42 @@ public class AlienHorde
 		}
 	}
 
+	/* hitBox:
+	 * {
+	 * 		top : obj.getY();
+	 * 		bot : obj.getY()+obj.getHeight();
+	 * 		left : obj.getX();
+	 * 		right : obj.getX() + obj.getWidth();
+	 * }
+	 * 
+	 * They are in contact if
+	 * {
+	 * 		a.top + s.bot
+	 * 		a.left + s.right
+	 * 		a.right + s.left
+	 * 		a.bot + s.top
+	 * }
+	*/
+	public boolean hitShip(Ship enemy) {
+		Ship s = enemy;
+		for (Alien a : aliens) {
+			int aTop = a.getY();
+			int aBot = a.getY() + a.getHeight();
+			int aLeft = a.getX();
+			int aRight = a.getX() + a.getWidth();
+			
+			int sTop = s.getY();
+			int sBot = s.getY() + s.getHeight();
+			int sLeft = s.getX();
+			int sRight = s.getX() + s.getWidth();
+			
+			if (((aTop <= sBot && aTop >=sTop ) || (aBot >= sTop && aBot <= sBot) )&&
+					((aRight >= sLeft && aRight <= sRight ) || (aLeft <= sRight && aLeft >= sLeft))) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public void removeDeadOnes()
 	{	
 		List<Alien> deadAliens = new ArrayList<Alien>();

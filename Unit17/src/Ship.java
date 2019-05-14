@@ -14,6 +14,7 @@ public class Ship extends MovingThing
 	private int speed;
 	private Image image;
 	private Ammo ammo;
+	private boolean isDead;
 	public Ship()
 	{
 		this(10,10,100,100,5);
@@ -33,6 +34,7 @@ public class Ship extends MovingThing
 	{
 		super(x, y, w, h);
 		speed=s;
+		isDead = false;
 		try
 		{
 			URL url = getClass().getResource("images/ship.jpg");
@@ -54,7 +56,13 @@ public class Ship extends MovingThing
 	{
 	   return speed;
 	}
-
+	
+	public void killShip() {
+		isDead = true;
+	}
+	public boolean isShipDead() {
+		return isDead;
+	}
 	public void move(String direction)
 	{
 		if (direction.equalsIgnoreCase("right")) {

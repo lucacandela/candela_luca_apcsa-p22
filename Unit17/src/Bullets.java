@@ -79,9 +79,6 @@ public class Bullets
 			if ((bullet.getY() <= other.getY() + other.getHeight() && bullet.getY() >= other.getY())
 			&& (bullet.getX() <= other.getX() + other.getWidth() && bullet.getX() >=other.getX()) ) {
 				deadBullets.add(bullet);
-				
-				System.out.println("hit " + obj.getClass().getName());
-				
 			}
 		}
 		if (!deadBullets.isEmpty()) {

@@ -197,17 +197,17 @@ public class PictureTester
 	  beach.setTitle("original image");
 	  beach.explore();
 	  
-	  Picture hiddenMsg = new Picture ("msg.jpg");
+	  Picture hiddenMsg = new Picture ("pika.jpg");
 	  hiddenMsg.setTitle("original Message");
 	  hiddenMsg.explore();
 	  
 	  
-	  beach.encodeFives(beach);
+	  beach.encodeFives(hiddenMsg);
 	  Picture encoded = beach;
 	  encoded.setTitle("encoded image");
 	   
 	  encoded.explore();
-	  Picture decoded = beach.decode();
+	  Picture decoded = beach.decodeFives();
 	  decoded.setTitle("decoded image");
 	  decoded.explore();
   }

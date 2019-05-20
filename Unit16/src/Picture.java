@@ -144,18 +144,36 @@ public class Picture extends SimplePicture
 		  for (int col = 0; col < this.getWidth(); col++){
 			  // if the ending digit of the R G or B value is 5 make it not 5
 			  currPixel = currPixels[row][col];
-			  if (currPixel.getRed() % 10 == 5 || currPixel.getRed() == 5)
-				  currPixel.setRed(currPixel.getRed() - 1);
-			  if (currPixel.getGreen() % 10 == 5 || currPixel.getGreen() == 5)
-				  currPixel.setGreen(currPixel.getGreen() - 1);
-			  if (currPixel.getRed() % 10 == 5 || currPixel.getBlue() == 5)
-				  currPixel.setBlue(currPixel.getBlue() - 1);
 			  messagePixel = messagePixels[row][col];
-			  if (messagePixel.colorDistance(Color.BLACK) < 50)
+			  
+			  if (currPixel.getRed() % 5 == 0 || currPixel.getRed() % 10 == 0 || currPixel.getRed() == 5)
+				  currPixel.setRed(currPixel.getRed() - 1);
+			  if (currPixel.getGreen() % 5 == 0 || currPixel.getGreen() % 10 == 0 || currPixel.getGreen() == 5)
+				  currPixel.setGreen(currPixel.getGreen() - 1);
+			  if (currPixel.getBlue() % 5 == 0 || currPixel.getBlue() % 10 == 0 || currPixel.getBlue() == 5)
+				  currPixel.setBlue(currPixel.getBlue() - 1);
+			  if (currPixel.getRed() == 0)
+				  currPixel.setRed(1);
+			  if (currPixel.getBlue() == 0)
+				  currPixel.setBlue(1);
+			  if (currPixel.getGreen() == 0)
+				  currPixel.setGreen(1);
+			  
+			  if (messagePixel.colorDistance(Color.black) < 50)
 			  {
-				  currPixel.setRed(currPixel.getRed() + 1);
-				  currPixel.setBlue(currPixel.getBlue() + 1);
-				  currPixel.setGreen(currPixel.getGreen() + 1);
+
+				  while (currPixel.getRed() % 5 != 0) {
+					  currPixel.setRed(currPixel.getRed() + 1);
+				  }
+
+				  while (currPixel.getBlue() % 5 != 0) {
+					  currPixel.setBlue(currPixel.getBlue() + 1);
+				  }
+
+				  while (currPixel.getGreen() % 5 != 0) {
+					  currPixel.setGreen(currPixel.getGreen() + 1);
+				  }
+
 				  count++;
 			  }
 		  }
@@ -177,7 +195,7 @@ public class Picture extends SimplePicture
 		  for (int col = 0; col < this.getWidth(); col++){
 			  currPixel = pixels[row][col];
 			  messagePixel = messagePixels[row][col];
-			  if (currPixel.getRed() % 2 == 1)
+			  if (currPixel.getRed() % 5 == 0)
 			  {
 			  messagePixel.setColor(Color.BLACK);
 			  count++;

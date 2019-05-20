@@ -135,6 +135,10 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 				}
 			}
 			horde.removeDeadOnes();
+			
+		}
+		if (alienList.size() <= 0) {
+			graphToBack.drawString("You win!", 200, 50);
 		}
 		twoDGraph.drawImage(back, null, 0, 0);
 	}

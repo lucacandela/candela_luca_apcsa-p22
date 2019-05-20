@@ -99,6 +99,94 @@ public class Picture extends SimplePicture
     }
   }
   
+  public void encode(Picture messagePict)
+  {
+	 
+  }
+  /**
+  * Method to decode a message hidden in the
+  * red value of the current picture
+  * @return the picture with the hidden message
+  */
+  public Picture decode()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  int height = this.getHeight();
+	  int width = this.getWidth();
+	  Pixel currPixel = null;
+	
+	  Pixel messagePixel = null;
+	  Picture messagePicture = new Picture(height,width);
+	  Pixel[][] messagePixels = messagePicture.getPixels2D();
+	  int count = 0;
+	  for (int row = 0; row < this.getHeight(); row++){
+		  for (int col = 0; col < this.getWidth(); col++){
+			  currPixel = pixels[row][col];
+			  messagePixel = messagePixels[row][col];
+			  if (currPixel.getRed() % 2 == 1)
+			  {
+			  messagePixel.setColor(Color.BLACK);
+			  count++;
+			  }
+		  }
+	  }
+	  System.out.println(count);
+	  return messagePicture;
+  }  
+  
+  public void encodeFives(Picture messagePic) {
+	  Pixel[][] messagePixels = messagePic.getPixels2D();
+	  Pixel[][] currPixels = this.getPixels2D();
+	  Pixel currPixel = null;
+	  Pixel messagePixel = null;
+	  int count = 0;
+	  for (int row = 0; row < this.getHeight(); row++){
+		  for (int col = 0; col < this.getWidth(); col++){
+			  // if the ending digit of the R G or B value is 5 make it not 5
+			  currPixel = currPixels[row][col];
+			  if (currPixel.getRed() % 10 == 5 || currPixel.getRed() == 5)
+				  currPixel.setRed(currPixel.getRed() - 1);
+			  if (currPixel.getGreen() % 10 == 5 || currPixel.getGreen() == 5)
+				  currPixel.setGreen(currPixel.getGreen() - 1);
+			  if (currPixel.getRed() % 10 == 5 || currPixel.getBlue() == 5)
+				  currPixel.setBlue(currPixel.getBlue() - 1);
+			  messagePixel = messagePixels[row][col];
+			  if (messagePixel.colorDistance(Color.BLACK) < 50)
+			  {
+				  currPixel.setRed(currPixel.getRed() + 1);
+				  currPixel.setBlue(currPixel.getBlue() + 1);
+				  currPixel.setGreen(currPixel.getGreen() + 1);
+				  count++;
+			  }
+		  }
+	  }
+	  System.out.println(count);
+  }
+  
+  public Picture decodeFives() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  int height = this.getHeight();
+	  int width = this.getWidth();
+	  Pixel currPixel = null;
+	
+	  Pixel messagePixel = null;
+	  Picture messagePicture = new Picture(height,width);
+	  Pixel[][] messagePixels = messagePicture.getPixels2D();
+	  int count = 0;
+	  for (int row = 0; row < this.getHeight(); row++){
+		  for (int col = 0; col < this.getWidth(); col++){
+			  currPixel = pixels[row][col];
+			  messagePixel = messagePixels[row][col];
+			  if (currPixel.getRed() % 2 == 1)
+			  {
+			  messagePixel.setColor(Color.BLACK);
+			  count++;
+			  }
+		  }
+	  }
+	  System.out.println(count);
+	  return messagePicture;
+  }
   /** Method to keep only blue value and set others to 0 */
   public void keepOnlyBlue() {
 	  Pixel[][]pixels = this.getPixels2D();

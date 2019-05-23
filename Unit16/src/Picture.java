@@ -628,10 +628,8 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("snowman.jpg");
-    beach.explore();
-    beach.mirrorArms();
-    beach.explore();
+	  PictureTester p = new PictureTester();
+	  p.main(null);
   }
   
 } // this } is the end of class Picture, put all new methods before this

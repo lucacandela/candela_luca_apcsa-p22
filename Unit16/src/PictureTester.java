@@ -198,7 +198,7 @@ public class PictureTester
 	  beach.explore();
 	  beach.write("C:\\Users\\candelal0514\\Pictures\\New folder\\"+beach.getTitle()+".jpg");
 	  
-	  Picture hiddenMsg = new Picture ("msg.jpg");
+	  Picture hiddenMsg = new Picture ("apple_icon.jpg");
 	  hiddenMsg.setTitle("original Message");
 	  hiddenMsg.explore();
 	  hiddenMsg.write("C:\\Users\\candelal0514\\Pictures\\New folder\\"+hiddenMsg.getTitle()+".jpg");

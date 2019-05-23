@@ -196,20 +196,24 @@ public class PictureTester
 	  Picture beach = new Picture("beach.jpg");
 	  beach.setTitle("original image");
 	  beach.explore();
+	  beach.write("C:\\Users\\candelal0514\\Pictures\\New folder\\"+beach.getTitle()+".jpg");
 	  
-	  Picture hiddenMsg = new Picture ("pika.jpg");
+	  Picture hiddenMsg = new Picture ("msg.jpg");
 	  hiddenMsg.setTitle("original Message");
 	  hiddenMsg.explore();
-	  
+	  hiddenMsg.write("C:\\Users\\candelal0514\\Pictures\\New folder\\"+hiddenMsg.getTitle()+".jpg");
 	  
 	  beach.encodeFives(hiddenMsg);
 	  Picture encoded = beach;
 	  encoded.setTitle("encoded image");
 	   
 	  encoded.explore();
+	  encoded.write("C:\\Users\\candelal0514\\Pictures\\New folder\\"+encoded.getTitle()+".jpg");
+	  
 	  Picture decoded = beach.decodeFives();
 	  decoded.setTitle("decoded image");
 	  decoded.explore();
+	  decoded.write("C:\\Users\\candelal0514\\Pictures\\New folder\\"+decoded.getTitle()+".jpg");
   }
 
   /** Main method for testing.  Every class can have a main

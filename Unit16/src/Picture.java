@@ -161,19 +161,61 @@ public class Picture extends SimplePicture
 			  
 			  if (messagePixel.colorDistance(Color.black) < 50)
 			  {
-
+				  int origVal; 
+				  int one, two;
+				  int closest = 0;
+				  origVal = currPixel.getRed();
+				  one = origVal;
+				  two = origVal;
 				  while (currPixel.getRed() % 5 != 0) {
-					  currPixel.setRed(currPixel.getRed() + 1);
+					  one++;
+					  if (one % 5 == 0) {
+						  closest = one;
+						  break;
+					  }
+					  two--;
+					  if (two % 5 == 0) {
+						  closest = two;
+						  break;
+					  }
 				  }
-
+				  currPixel.setRed(closest);
+				  
+				  origVal = currPixel.getBlue();
+				  one = origVal;
+				  two = origVal;
 				  while (currPixel.getBlue() % 5 != 0) {
-					  currPixel.setBlue(currPixel.getBlue() + 1);
+					  one++;
+					  if (one % 5 == 0) {
+						  closest = one;
+						  break;
+					  }
+					  two--;
+					  if (two % 5 == 0) {
+						  closest = two;
+						  break;
+					  }
 				  }
-
+				  currPixel.setBlue(closest);
+				  
+				  origVal = currPixel.getGreen();
+				  one = origVal;
+				  two = origVal;
 				  while (currPixel.getGreen() % 5 != 0) {
-					  currPixel.setGreen(currPixel.getGreen() + 1);
+					  one++;
+					  if (one % 5 == 0) {
+						  closest = one;
+						  break;
+					  }
+					  two--;
+					  if (two % 5 == 0) {
+						  closest = two;
+						  break;
+					  }
 				  }
-
+				  currPixel.setGreen(closest);
+				  
+				  
 				  count++;
 			  }
 		  }
